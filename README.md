@@ -109,7 +109,7 @@ This is an independent learning project. The topology is being prepared, and the
 
 ## Check out my other labs & share feedback
 
-This is one of my hands-on projects, and I'll be adding more labs and experiments as I continue learning. Feel free to check out my other repositories and projects on my [GitHub profile](https://github.com/MaloneNetworks).
+This is one of my hands-on projects, and I'll be adding more labs and experiments as I continue learning. Feel free to check out my other repositories and projects on my [GitHub profile](https://github.com/MaloneNetworks). You can also connect with me or reach out on [LinkedIn](https://www.linkedin.com/in/darrellmalone9107/).
 
 If you spot something I could improve, have a different way of approaching a configuration, or just have feedback, I'd love to hear it. Open an issue or start a discussion in the repository. I'm always looking to learn, improve the lab, and hear how other people would tackle the same challenges.
 
