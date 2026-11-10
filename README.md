@@ -38,6 +38,8 @@ This is a third-party resource. I'm linking to the original page rather than hos
 
 The diagram above shows the current proposed network layout, including the dual-ISP edge, HQ firewall layers, DMZ, redundant core switches, distribution/access layers, voice VLAN, and branch-office connectivity. Device configurations and links are being implemented and validated in stages.
 
+**Topology version:** 2.0. This diagram represents the current design snapshot. The topology will be updated as the lab evolves, devices are configured, and connectivity is tested. Future revisions will be documented here with their version numbers and notable changes.
+
 ## What I'm building
 
 The goal is to create a network that brings several technologies together:
