@@ -1,11 +1,11 @@
 # Network Diagrams
 
-Store source and rendered diagrams here. Keep diagrams synchronized with the actual GNS3 topology and port-mapping document.
+Save the original diagram files and exported pictures here. Keep them in sync with the actual GNS3 project and the cable/port list.
 
 Planned diagrams:
-- Enterprise logical topology
-- Physical/logical GNS3 topology with interface labels
-- VLAN and subnet map
-- Voice/VoIP topology
+- Full network layout
+- GNS3 layout with port labels
+- VLAN and IP address map
+- Phone network layout
 
-Use the `planned` or `as-built` designation so readers can distinguish design intent from verified implementation.
+Label each diagram as either **planned** (what we intend to build) or **as-built** (what has been configured and checked).
