@@ -1,37 +1,37 @@
-# Daily Lab Log
+# Daily Lab Notes
 
-Copy to `daily-logs/YYYY-MM-DD.md` for each work session.
+Make a copy of this file for each work session. Name it with the date, for example `daily-logs/2026-11-09.md`.
 
-## Session
+## Work session
 - Date:
-- Milestone:
-- Objective:
+- Part of the lab:
+- What I wanted to do:
 
-## Changes
-- Devices touched:
-- Interfaces changed:
-- Configuration summary:
+## Changes made
+- Devices used:
+- Ports changed:
+- What I changed:
 
-## Verification
-| Test | Expected | Actual | Pass/fail |
+## Tests
+| What I tested | What should happen | What actually happened | Pass or fail |
 |---|---|---|---|
 | | | | |
 
-## Troubleshooting
-- Symptom:
-- Commands/output:
-- Root cause:
-- Resolution:
+## Problems and fixes
+- What went wrong:
+- Commands or messages:
+- What caused it:
+- How it was fixed:
 
-## Evidence
+## Proof
 - Screenshots:
-- Configuration files:
-- Test output:
+- Saved settings:
+- Test results:
 
-## Git checkpoint
+## GitHub save point
 - Commit:
-- Snapshot name:
-- Rollback notes:
+- GNS3 backup name:
+- How to undo the changes:
 
-## Next session
+## Next time
 - [ ]
