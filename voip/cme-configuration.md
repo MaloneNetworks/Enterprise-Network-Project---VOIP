@@ -1,15 +1,17 @@
-# Cisco CME Implementation Notes
+# Cisco CME Phone Server Notes
 
-> Status: compatibility validation pending. No CME configuration has been applied. The candidate is a Cisco 3745 running IOS 12.4(25d), image C3745-ADVENTERPRISEK9-M. Flash previously appeared unavailable/removed.
+> **Status: Still checking compatibility.** CME has not been configured. The planned router is a Cisco 3745 running IOS 12.4(25d), image `C3745-ADVENTERPRISEK9-M`. The router has reported that its flash storage is missing or unavailable.
 
-## Intended design
-- Hostname: R-CME-01
+## Planned settings
+
+- Router name: R-CME-01
 - Voice VLAN: 30
-- Candidate address: 10.10.30.10/24
-- Proposed gateway: 10.10.30.1, only if confirmed as VLAN 30's gateway
+- Router address: 10.10.30.10/24
+- Planned gateway: 10.10.30.1, if that is confirmed as the voice network's gateway
 
-## Preflight
-Run and save:
+## Commands used to check the router
+
+Run these commands and save the results:
 
 ```cisco
 enable
@@ -21,15 +23,17 @@ show flash:
 show inventory
 ```
 
-## Compatibility checklist
-- Confirm IOS feature set and platform support for the intended CME release.
-- Confirm flash/storage exists and has sufficient free space.
-- Confirm the required CME files are legitimately available.
-- Confirm the softphone protocol and firmware are compatible with the selected CME release.
-- Confirm interface mapping, VLAN 30 gateway ownership, and routing.
-- Confirm only one DHCP authority serves the voice subnet.
+## Checks we must finish first
 
-Do not paste a final configuration until these checks pass. The eventual configuration may include hostname, management access, voice-facing interface, routing, DHCP or relay, TFTP/Option 150 if required, CME call control, directory numbers, and endpoint registration. Use only commands supported by the actual IOS image.
+- Make sure this IOS version supports the CME version we want.
+- Make sure the router has working storage and enough free space.
+- Make sure the CME files are available to use.
+- Make sure the softphone uses a phone protocol supported by this CME version.
+- Confirm the router port, VLAN 30 gateway, and route to the rest of the lab.
+- Decide which device will give IP addresses to phones. Only one device should manage the voice DHCP range.
 
-## Validation
-Verify interface up/up, endpoint DHCP, CME reachability, registration, and successful calls in both directions. Save known-good configuration before each change. Never commit passwords or authentication secrets.
+Do not paste a full phone-server configuration until these checks are complete. The final setup may need the router name, login access, voice interface, routing, DHCP or DHCP relay, TFTP/Option 150, CME phone settings, extensions, and phone registration. The exact commands depend on the IOS version.
+
+## How we will test it
+
+Check that the router port is up, a phone gets the right IP address, the phone can reach CME, the phone registers, and calls work in both directions. Save a working copy before making changes. Never upload passwords or other secrets to GitHub.
