@@ -1,41 +1,42 @@
-# Port Mapping
+# Cable and Port List
 
-Authoritative record of GNS3 links and interface assignments. The GNS3 workspace is cabled but has not yet been started/configured. The port names below are a transcription of the current diagram where legible; verify both endpoints against GNS3 link labels before configuration.
+This page records which device ports are connected to each other. The GNS3 diagram is already cabled, and we want to keep those connections. Some labels still need to be checked in GNS3 before we treat them as confirmed.
 
-## Core and distribution links
+## Core and distribution switches
 
-| Link | Device A | Interface A | Device B | Interface B | Purpose | State |
+| Link | First device | Port | Second device | Port | Why they are connected | Status |
 |---|---|---|---|---|---|---|
-| CORE-LINK-01 | CORE-01 | Diagram label to verify | CORE-02 | Diagram label to verify | First member of planned LACP EtherChannel | Drawn; verify |
-| CORE-LINK-02 | CORE-01 | Diagram label to verify | CORE-02 | Diagram label to verify | Second member of planned LACP EtherChannel | Drawn; verify |
-| CORE-DIST-01 | CORE-01 | Diagram label to verify | SW-DIST-01 | Diagram label to verify | Distribution uplink | Drawn; verify |
-| CORE-DIST-02 | CORE-02 | Diagram label to verify | SW-DIST-01 | Diagram label to verify | Redundant distribution uplink | Drawn; verify |
+| CORE-LINK-01 | CORE-01 | Check in GNS3 | CORE-02 | Check in GNS3 | First link in the planned LACP bundle | Cable drawn; ports to check |
+| CORE-LINK-02 | CORE-01 | Check in GNS3 | CORE-02 | Check in GNS3 | Second link in the planned LACP bundle | Cable drawn; ports to check |
+| CORE-DIST-01 | CORE-01 | Check in GNS3 | SW-DIST-01 | Check in GNS3 | Main link to the distribution switch | Cable drawn; ports to check |
+| CORE-DIST-02 | CORE-02 | Check in GNS3 | SW-DIST-01 | Check in GNS3 | Backup link to the distribution switch | Cable drawn; ports to check |
 
-Each IOU L3 core switch has four ports according to the user. Preserve the current cabling. Do not add ports or change links based on an assumed interface map. Verify that the existing two-link inter-core bundle and other links match the actual four-port inventory.
+Each core switch has four ports, as confirmed by the user. Keep the current cables in place. Check the actual port labels before setting up the two-link LACP bundle or the distribution links.
 
-## Access-layer uplinks
+## Links to the access switches
 
-| Link | Device A | Interface A | Device B | Interface B | Purpose | State |
+| Link | First device | Port | Second device | Port | Why they are connected | Status |
 |---|---|---|---|---|---|---|
-| ACCESS-ADMIN | SW-DIST-01 | Diagram label to verify | SW-Admin | Diagram label to verify | Admin access uplink | Drawn; verify |
-| ACCESS-ENG | SW-DIST-01 | Diagram label to verify | SW-ENG | Diagram label to verify | Engineering access uplink | Drawn; verify |
-| ACCESS-VOICE | SW-DIST-01 | Ethernet1/1 (diagram label; verify in GNS3) | SW-Voice | Ethernet0/0 | Voice access uplink / VLAN 30 trunk | Cable shown in v2.0 diagram; switch config in progress |
-| ACCESS-SRV | SW-DIST-01 | Diagram label to verify | SW-SRV | Diagram label to verify | Server access uplink | Drawn; verify |
+| ACCESS-ADMIN | SW-DIST-01 | Check in GNS3 | SW-Admin | Check in GNS3 | Admin network connection | Cable drawn; ports to check |
+| ACCESS-ENG | SW-DIST-01 | Check in GNS3 | SW-ENG | Check in GNS3 | Engineering network connection | Cable drawn; ports to check |
+| ACCESS-VOICE | SW-DIST-01 | Ethernet1/1 shown in diagram; check in GNS3 | SW-Voice | Ethernet0/0 | Carries the voice network (VLAN 30) | Cable drawn; switch setup in progress |
+| ACCESS-SRV | SW-DIST-01 | Check in GNS3 | SW-SRV | Check in GNS3 | Server network connection | Cable drawn; ports to check |
 
-## VoIP links
+## Phone network connections
 
-| Link | Device A | Interface A | Device B | Interface B | Purpose | State |
+| Link | First device | Port | Second device | Port | Why they are connected | Status |
 |---|---|---|---|---|---|---|
-| CME-VOICE | R-CME-01 | FastEthernet0/0 | SW-Voice | Ethernet0/1 | CME reachability / voice access (VLAN 30) | Cable shown in v2.0 diagram; router Fa0/0 configured as 10.10.30.10; switch config in progress |
-| VM-BRIDGE | GNS3 Cloud1 | eth1 candidate | VMware VOIP-LAB adapter | LAN Segment adapter | Windows VM to GNS3 | Intended; not validated |
+| CME-VOICE | R-CME-01 | FastEthernet0/0 | SW-Voice | Ethernet0/1 | Connects the CME router to the voice network | Cable shown in v2.0; router address is 10.10.30.10; switch setup in progress |
+| VM-BRIDGE | GNS3 Cloud1 | eth1 planned | VMware VOIP-LAB adapter | LAN Segment adapter | Connects the Windows softphone VM to GNS3 | Planned; not tested |
 
-## Other topology links
+## Other cables to record
 
-Inventory and document ISP1, ISP2, Internet cloud, HQ-EDGE, ASA-HQ-01, FortiGate, DMZ switch and servers, R-Branch, branch switch, and all endpoint links. Add one row per physical GNS3 link.
+Add the ports for ISP1, ISP2, the internet cloud, HQ-EDGE, ASA-HQ-01, FortiGate, the DMZ switch and servers, R-Branch, branch switch, and all PCs.
 
-## Rules
-- Preserve the current GNS3 cabling unless a specific issue is identified and agreed.
-- Replace "Diagram label to verify" with actual interface names from GNS3.
-- Record both ends of every link.
-- Verify switch access/trunk mode and VLAN allowance with device commands after configuration.
-- Mark a link verified only after comparing the GNS3 link endpoints and live interface state.
+## Rules for this page
+
+- Do not move or change existing cables unless we find a real problem and agree to change them.
+- Write down the port at both ends of every cable.
+- Use the exact port names shown by GNS3.
+- Check the switch settings after configuring a port.
+- Mark a link as confirmed only after checking it in GNS3 and on the devices.
