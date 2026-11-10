@@ -1,18 +1,41 @@
 # Port Mapping
 
-Authoritative record of GNS3 links and interface assignments. Populate from the actual topology before applying switch configuration.
+Authoritative record of GNS3 links and interface assignments. The GNS3 workspace is cabled but has not yet been started/configured. The port names below are a transcription of the current diagram where legible; verify both endpoints against GNS3 link labels before configuration.
 
-| Link | Device A | Interface A | Device B | Interface B | Purpose | VLAN/mode | Verified |
-|---|---|---|---|---|---|---|---|
-| L-001 | Cloud1 | eth1 (GNS3 VM host interface) | SW-Voice | TBD | Windows VM VOIP-LAB bridge | Access VLAN 30 planned | No |
-| L-002 | R-CME-01 | FastEthernet0/0 candidate | SW-Voice | TBD | CME connection | Access VLAN 30 planned | No |
-| L-003 | SW-Voice | TBD | SW-DIST-01 | TBD | Access/distribution uplink | Trunk planned | No |
-| L-004 | SW-DIST-01 | TBD | CORE-01 | TBD | Distribution/core | Trunk planned | No |
-| L-005 | SW-DIST-01 | TBD | CORE-02 | TBD | Redundant distribution/core | Trunk planned | No |
+## Core and distribution links
+
+| Link | Device A | Interface A | Device B | Interface B | Purpose | State |
+|---|---|---|---|---|---|---|
+| CORE-LINK-01 | CORE-01 | Diagram label to verify | CORE-02 | Diagram label to verify | First member of planned LACP EtherChannel | Drawn; verify |
+| CORE-LINK-02 | CORE-01 | Diagram label to verify | CORE-02 | Diagram label to verify | Second member of planned LACP EtherChannel | Drawn; verify |
+| CORE-DIST-01 | CORE-01 | Diagram label to verify | SW-DIST-01 | Diagram label to verify | Distribution uplink | Drawn; verify |
+| CORE-DIST-02 | CORE-02 | Diagram label to verify | SW-DIST-01 | Diagram label to verify | Redundant distribution uplink | Drawn; verify |
+
+Each IOU L3 core switch has four ports according to the user. Preserve the current cabling. Do not add ports or change links based on an assumed interface map. Verify that the existing two-link inter-core bundle and other links match the actual four-port inventory.
+
+## Access-layer uplinks
+
+| Link | Device A | Interface A | Device B | Interface B | Purpose | State |
+|---|---|---|---|---|---|---|
+| ACCESS-ADMIN | SW-DIST-01 | Diagram label to verify | SW-Admin | Diagram label to verify | Admin access uplink | Drawn; verify |
+| ACCESS-ENG | SW-DIST-01 | Diagram label to verify | SW-ENG | Diagram label to verify | Engineering access uplink | Drawn; verify |
+| ACCESS-VOICE | SW-DIST-01 | Diagram label to verify | SW-Voice | Diagram label to verify | Voice access uplink | Drawn; verify |
+| ACCESS-SRV | SW-DIST-01 | Diagram label to verify | SW-SRV | Diagram label to verify | Server access uplink | Drawn; verify |
+
+## VoIP links
+
+| Link | Device A | Interface A | Device B | Interface B | Purpose | State |
+|---|---|---|---|---|---|---|
+| CME-VOICE | R-CME-01 | FastEthernet interface to verify | SW-Voice | Switch port to verify | CME reachability / voice access | Planned; confirm actual cable |
+| VM-BRIDGE | GNS3 Cloud1 | eth1 candidate | VMware VOIP-LAB adapter | LAN Segment adapter | Windows VM to GNS3 | Intended; not validated |
+
+## Other topology links
+
+Inventory and document ISP1, ISP2, Internet cloud, HQ-EDGE, ASA-HQ-01, FortiGate, DMZ switch and servers, R-Branch, branch switch, and all endpoint links. Add one row per physical GNS3 link.
 
 ## Rules
-- Replace TBD using actual GNS3 interfaces.
-- Do not assume port numbering across switch images.
+- Preserve the current GNS3 cabling unless a specific issue is identified and agreed.
+- Replace "Diagram label to verify" with actual interface names from GNS3.
 - Record both ends of every link.
-- Verify trunks/access VLANs with device commands.
-- Keep this file synchronized with the topology diagram.
+- Verify switch access/trunk mode and VLAN allowance with device commands after configuration.
+- Mark a link verified only after comparing the GNS3 link endpoints and live interface state.
