@@ -1,31 +1,33 @@
-# Device Inventory
+# Device List
 
-Record actual appliance names, templates, versions, interfaces, and status. Do not infer models from topology icons.
+This page tracks the equipment in the lab. Add the real model, software version, ports, and current status as each device is checked. Do not guess based on the icon in GNS3.
 
-## Confirmed / reported inventory
+## Devices checked so far
 
-| Lab hostname | Intended role | Appliance/template | Software version | Interfaces | Status / notes |
+| Device name | What it does | GNS3 device/image | Software | Ports | Current status |
 |---|---|---|---|---|---|
-| CORE-01 | Layer 3 core | Cisco IOU L3 | To record | 4 ports reported; exact names to verify | Placed; not configured |
-| CORE-02 | Layer 3 core | Cisco IOU L3 | To record | 4 ports reported; exact names to verify | Placed; not configured |
-| SW-DIST-01 | Distribution | Cisco IOU L2 | To record | To inventory | Placed; not configured |
-| SW-Admin | Admin access | Cisco IOU L2 | To record | To inventory | Placed; not configured |
-| SW-ENG | Engineering access | Cisco IOU L2 | To record | To inventory | Placed; not configured |
-| SW-Voice | Voice access | Cisco IOU L2 | To record | To inventory | Placed; not configured |
-| SW-SRV | Server access | Cisco IOU L2 | To record | To inventory | Placed; not configured |
-| HQ-EDGE | HQ edge routing | Existing GNS3 appliance; model TBD | To record | To inventory | Placed; not configured |
-| R-Branch | Branch routing | Existing GNS3 appliance; model TBD | To record | To inventory | Placed; not configured |
-| R-CME-01 | VoIP call-control candidate | Cisco 3745 | IOS 12.4(25d), C3745-ADVENTERPRISEK9-M | FastEthernet interfaces to verify | Candidate; CME compatibility and storage pending |
-| ASA-HQ-01 | Perimeter / DMZ firewall | ASA appliance; exact template TBD | To record | To inventory | Placed; not configured |
-| FortiGate | Enterprise firewall practice | FortiGate appliance; exact image/version TBD | To record | To inventory | Placed; not configured |
-| VOIP-PHONE-01 | Softphone endpoint VM | Windows 11 VMware VM | To record | NAT + VMware LAN Segment VOIP-LAB | Installed; GNS3 bridge path pending |
-| GNS3 VM | GNS3 compute/server | GNS3 VM | To record | eth0 and eth1 reported | eth1 intended for VOIP-LAB; bridge not yet validated |
+| CORE-01 | Main network switch; handles routing between networks | Cisco IOU L3 | To check | 4 ports reported; names still need checking | Added; not configured |
+| CORE-02 | Backup/main network switch | Cisco IOU L3 | To check | 4 ports reported; names still need checking | Added; not configured |
+| SW-DIST-01 | Connects the core switches to the access switches | Cisco IOU L2 | To check | To check | Added; not configured |
+| SW-Admin | Connects admin computers | Cisco IOU L2 | To check | To check | Added; not configured |
+| SW-ENG | Connects engineering computers | Cisco IOU L2 | To check | To check | Added; not configured |
+| SW-Voice | Connects voice devices and the CME router | Cisco IOU L2 | To check | To check | Added; configuration in progress |
+| SW-SRV | Connects internal servers | Cisco IOU L2 | To check | To check | Added; not configured |
+| HQ-EDGE | Connects the main office to the internet/WAN | GNS3 device; exact model unknown | To check | To check | Added; not configured |
+| R-Branch | Router at the branch office | GNS3 device; exact model unknown | To check | To check | Added; not configured |
+| R-CME-01 | Handles phone calls (CME candidate) | Cisco 3745 | IOS 12.4(25d), C3745-ADVENTERPRISEK9-M | FastEthernet ports; check exact links | Boots; CME support and storage still need checking |
+| ASA-HQ-01 | Cisco firewall | ASA image; exact version unknown | To check | To check | Added; not configured |
+| FortiGate | Fortinet firewall | Exact image/version unknown | To check | To check | Added; not configured |
+| VOIP-PHONE-01 | Windows computer that will run the softphone | Windows 11 VMware VM | To check | NAT + VMware LAN Segment named VOIP-LAB | Installed; GNS3 connection not tested |
+| GNS3 VM | Runs the GNS3 network devices | GNS3 VM in VMware | To check | eth0 and eth1 reported | eth1 is intended for VOIP-LAB; not tested |
 
-## Topology inventory still required
+## Devices still to check
 
-Record all remaining ISP routers/clouds, DMZ switch and servers, branch access switch and PC, HQ endpoints, and any additional appliances visible in the GNS3 workspace. Confirm each node's exact template and interface count from GNS3.
+Add the internet cloud, ISP routers, DMZ switch and servers, branch switch and PC, office PCs, and any other devices in the GNS3 project.
 
-## Cisco IOS inventory commands
+## Commands that help identify a Cisco device
+
+These commands show the model, software, ports, neighbors, VLANs, and storage:
 
 ```text
 show version
@@ -39,8 +41,8 @@ show etherchannel summary
 show file systems
 ```
 
-Some commands are platform-dependent; unsupported commands can be skipped.
+Some commands are not available on every device. If a command is rejected, note that and move on.
 
-## Storage note
+## Cisco 3745 storage note
 
-Cisco 3745 previously reported `flash:` in a REMOVED state. Record `show file systems` and inspect GNS3 template storage settings before deciding how to provide flash or CME files. Do not assume CME is available just because the router boots.
+The 3745 reported that its flash storage was in a REMOVED state. We need to check the GNS3 device settings and available storage before trying to add CME files. The router starting successfully does not prove that CME will work.
