@@ -1,9 +1,11 @@
-# Implementation Evidence
+# Screenshots and Proof
 
-Store screenshots in milestone-specific folders. Suggested filenames:
+Save screenshots in the folder for the stage they belong to.
+
+Suggested file names:
 - `milestone-01-gns3-topology.png`
 - `milestone-01-cisco-3745-show-version.png`
 - `milestone-03-vlan-verification.png`
 - `milestone-09-voice-vlan-connectivity.png`
 
-Inspect screenshots for passwords, tokens, personal information, and licensed or proprietary material before publishing.
+Before sharing a screenshot, check that it does not show passwords, login details, personal information, or licensed/proprietary files.
