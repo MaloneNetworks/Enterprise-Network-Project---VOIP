@@ -24,6 +24,10 @@ Think of it like building a small IT environment inside one physical PC. The rou
 
 You don't need to know GNS3 or virtualization to follow along. I'll document the setup, explain the purpose of each part, and include diagrams, configurations, screenshots, and test results as the project develops.
 
+## Topology design resource
+
+I'm using **[draw.io (diagrams.net)](https://www.drawio.com/)** to create the network topology diagrams for this project and my future lab designs. It's free to use, and the desktop application is free to download. I plan to keep the editable `.drawio` source files alongside exported images so the diagrams can be updated as the lab changes.
+
 ## Image resources
 
 Some of the Cisco images used for this lab were found in this GitHub repository:
