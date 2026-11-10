@@ -1,35 +1,42 @@
-# Project Overview
+# What This Project Is
 
-## Purpose
-A practical enterprise networking and VoIP implementation lab demonstrating planning, configuration, validation, troubleshooting, and documentation in a repeatable virtual environment.
+## The goal
 
-## Scope
-- Enterprise topology and device inventory
-- VLANs, trunks, access ports, and Layer 2 controls
-- Layer 3 switching, inter-VLAN routing, and gateway redundancy
-- WAN and branch connectivity
-- Firewall segmentation, NAT, ACLs, and DMZ policy
-- Voice VLAN, DHCP/TFTP, call control, and softphone endpoints
-- Verification, failure testing, and technical documentation
+Build a large business-style network in GNS3 and VMware. Use it to practice setting up networks, connecting offices, securing traffic, running phone service, and fixing problems.
 
-## Working principles
-1. Preserve the existing GNS3 project while inventorying it.
-2. Confirm appliance capabilities before choosing commands.
-3. Maintain one authoritative IP and port assignment table.
-4. Apply changes in small, testable increments.
-5. Capture evidence for every completed milestone.
-6. Sanitize configurations before committing them.
+## What the lab will include
 
-## Current known environment
-- GNS3 VM running in VMware Workstation.
-- Windows 11 endpoint VM named `VOIP-PHONE-01`.
-- Windows VM has a NAT adapter and a second adapter on VMware LAN Segment `VOIP-LAB`.
-- GNS3 VM second interface `eth1` is intended for `VOIP-LAB`.
-- Cisco 3745 candidate reports IOS 12.4(25d), image `C3745-ADVENTERPRISEK9-M`; flash availability needs investigation.
+- Separate networks for different teams using VLANs.
+- Switches that connect the networks and help keep them running if a link fails.
+- Routers that move traffic between networks and offices.
+- Cisco ASA and FortiGate firewalls to control what traffic can pass.
+- A DMZ, which is a separate network for services that may need to be reached from outside.
+- A branch office connected to the main office.
+- A voice network with phone extensions and softphones.
+- Tests and practice problems to help build troubleshooting skills.
 
-## Open decisions
-- Confirm appliance types, software versions, and interfaces.
-- Confirm final VLAN and subnet allocations.
-- Confirm gateway and DHCP ownership.
-- Confirm CME release and endpoint protocol compatibility.
-- Confirm the Cloud1 `eth1` bridge path.
+## How the project will be built
+
+1. Keep the current GNS3 layout and check every device and cable.
+2. Finish one IP address and VLAN plan.
+3. Make small changes and test them before moving on.
+4. Check what each device can do before choosing commands.
+5. Save proof when something works.
+6. Remove passwords and private details before sharing settings.
+
+## What is already known
+
+- GNS3 runs inside VMware Workstation.
+- A Windows 11 VM named `VOIP-PHONE-01` is installed.
+- The Windows VM has one VMware NAT adapter and a second adapter on a LAN Segment named `VOIP-LAB`.
+- GNS3 VM interface `eth1` is planned for the `VOIP-LAB) connection.
+- The Cisco 3745 router reports IOS 12.4(25d) and image `C3745-ADVENTERPRISEK9-M`.
+- The Cisco 3745 flash storage needs to be fixed or replaced before we can decide whether CME files can be used.
+
+## Things still to decide
+
+- Exact device models, software versions, and port numbers.
+- Final VLANs, IP networks, and gateways.
+- Which device gives out IP addresses.
+- Whether the Cisco 3745 can run the needed CME version.
+- Whether the Windows VM can reach GNS3 through Cloud1.
