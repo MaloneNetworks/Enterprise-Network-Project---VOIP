@@ -1,9 +1,9 @@
-# Project Media
+# Project Videos and Walkthroughs
 
-Add project demonstrations and walkthroughs after recording and publishing them.
+Add videos or walkthroughs here after they have been recorded and published.
 
-| Title | URL | Description | Status |
+| Video | Link | What it shows | Status |
 |---|---|---|---|
-| Enterprise topology walkthrough | TBD | Tour of the GNS3 enterprise topology | Planned |
-| VoIP registration and calling demo | TBD | Demonstrate endpoint registration and extension calling | Planned |
-| Network failover demonstration | TBD | Demonstrate gateway redundancy and recovery | Planned |
+| Network layout walkthrough | To add | Tour of the GNS3 network | Planned |
+| Phone setup and test call | To add | Connect a phone and call another extension | Planned |
+| Network backup test | To add | Show the network staying online after a link or device fails | Planned |
