@@ -1,103 +1,105 @@
-# Implementation Roadmap
+# Build Plan
 
-Milestones are complete only after configuration and verification evidence are recorded. Day labels are suggested work sessions, not deadlines.
+This is the order we'll use to build the lab. A task is only complete after we configure it and test that it works. The numbered sessions are suggestions, not deadlines.
 
-## Phase 1 — Discovery and design
+## Stage 1 — Learn what we have and plan it
 
-### 01: Environment inventory
-- [ ] Record GNS3 and VMware versions.
-- [ ] Inventory router, switch, firewall, and server templates.
-- [ ] Record software versions, resources, and interfaces.
-- [ ] Record current links and port assignments.
-- [ ] Investigate Cisco 3745 flash storage and voice feature support.
-- Evidence: inventory, topology screenshot, version outputs.
+### 1. Check the devices
+- [ ] Write down the GNS3 and VMware versions.
+- [ ] Check each router, switch, firewall, and server.
+- [ ] Record each device's software and available ports.
+- [ ] Write down both ends of every cable in GNS3.
+- [ ] Check the Cisco 3745 storage and whether it can run CME.
+- Evidence: device list, topology screenshot, and command output.
 
-### 02: Addressing and VLAN plan
-- [ ] Confirm VLANs, subnets, gateways, and DHCP scopes.
-- [ ] Confirm management and native VLAN policy.
-- [ ] Define reservations and exclusions.
-- [ ] Check for overlapping subnets.
+### 2. Plan the network addresses
+- [ ] Confirm each VLAN, network, and gateway.
+- [ ] Decide which device gives out IP addresses (DHCP).
+- [ ] Decide which addresses must stay reserved for servers and network devices.
+- [ ] Check that no two networks use overlapping addresses.
 
-## Phase 2 — Switching
+## Stage 2 — Set up the switches
 
-### 03: Core switching
-- [ ] Configure hostnames and management.
-- [ ] Create approved VLANs.
-- [ ] Configure core links and trunks.
-- [ ] Configure Layer 3 interfaces after gateway ownership is agreed.
-- [ ] Verify VLANs and trunks.
+### 3. Set up the core switches
+- [ ] Set device names and management access.
+- [ ] Create the VLANs we approve.
+- [ ] Set up the links between the core switches and the other switches.
+- [ ] Set up routing only after we decide which device owns each gateway.
+- [ ] Check that VLANs and trunks work.
 
-### 04: Redundancy
-- [ ] Define spanning-tree root roles.
-- [ ] Configure HSRP or supported first-hop redundancy.
-- [ ] Test active/standby behavior and failover.
+### 4. Set up backup paths
+- [ ] Decide which switch should be the main Spanning Tree switch.
+- [ ] Set up HSRP or another supported backup-gateway feature if needed.
+- [ ] Test what happens when a main link or device goes down.
 
-### 05: Distribution and access
-- [ ] Configure distribution uplinks and access ports.
-- [ ] Record both ends of every link.
-- [ ] Verify spanning tree and Layer 2 reachability.
+### 5. Set up the distribution and access switches
+- [ ] Configure the links to each access switch.
+- [ ] Set up the ports used by computers, phones, and servers.
+- [ ] Record both ends of each link.
+- [ ] Check that devices can reach the correct networks.
 
-## Phase 3 — Routing and security
+## Stage 3 — Connect networks and add security
 
-### 06: Routing
-- [ ] Configure inter-VLAN routing and routes as designed.
-- [ ] Verify route tables and reachability.
-- [ ] Document intentional traffic restrictions.
+### 6. Set up routing
+- [ ] Configure the paths between networks.
+- [ ] Check the routing tables and test reachability.
+- [ ] Write down any traffic that should be blocked.
 
-### 07: Firewall and DMZ
-- [ ] Confirm firewall platform and interface mappings.
-- [ ] Define zones and permitted flows.
-- [ ] Configure ACLs and NAT.
-- [ ] Verify allowed and denied traffic.
+### 7. Set up the firewalls and DMZ
+- [ ] Confirm firewall models and port connections.
+- [ ] Decide which traffic is allowed between network areas.
+- [ ] Set up firewall rules and NAT.
+- [ ] Test both allowed and blocked traffic.
 
-### 08: Branch/WAN
-- [ ] Configure ISP and edge links.
-- [ ] Configure branch routing.
-- [ ] Implement GRE/IPsec only if supported by selected images.
-- [ ] Verify tunnel and route behavior.
+### 8. Connect the branch office
+- [ ] Set up the internet/WAN links.
+- [ ] Set up branch routing.
+- [ ] Set up GRE/IPsec only if the selected devices support it.
+- [ ] Check the tunnel and branch network access.
 
-## Phase 4 — VoIP
+## Stage 4 — Set up phone service
 
-### 09: Voice network
-- [ ] Confirm VLAN 30 and subnet design.
-- [ ] Extend VLAN across required trunks.
-- [ ] Configure endpoint access port.
-- [ ] Connect Cloud1 to GNS3 VM interface attached to `VOIP-LAB`.
-- [ ] Test Layer 2 and Layer 3 connectivity.
+### 9. Build the voice network
+- [ ] Confirm VLAN 30 and its IP network.
+- [ ] Carry VLAN 30 across the required switch links.
+- [ ] Set the phone-facing switch ports.
+- [ ] Connect the VMware VOIP-LAB network to GNS3 Cloud1.
+- [ ] Test the connection from Windows to the voice network.
 
-### 10: CME validation
-- [ ] Confirm 3745 IOS image and memory.
-- [ ] Confirm flash device availability/capacity.
-- [ ] Confirm compatible CME release, phone model, firmware, and protocol.
-- [ ] Select a licensed softphone endpoint.
+### 10. Check whether CME will work
+- [ ] Check the 3745 IOS version and memory.
+- [ ] Check whether flash storage is available and large enough.
+- [ ] Check that the CME version, phone software, and softphone can work together.
+- [ ] Choose a softphone we can legally and practically use.
 
-### 11: Call control and first endpoint
-- [ ] Configure CME after compatibility is established.
-- [ ] Configure DHCP/TFTP and Option 150 where appropriate.
-- [ ] Configure first extension.
-- [ ] Test registration and dialing.
+### 11. Set up the first phone
+- [ ] Configure CME after the checks pass.
+- [ ] Set up DHCP and TFTP details if the phone needs them.
+- [ ] Create the first extension.
+- [ ] Test phone registration and a call.
 
-### 12: Additional endpoints
-- [ ] Create additional VMs with unique hostnames and MAC addresses.
-- [ ] Configure extensions.
-- [ ] Test calls between endpoints.
+### 12. Add more phones
+- [ ] Create more Windows VMs if needed.
+- [ ] Give each one its own name and network identity.
+- [ ] Add extensions and test calls between them.
 
-## Phase 5 — Validation and publication
+## Stage 5 — Test and share the project
 
-### 13: QoS and security
-- [ ] Validate QoS support and classification.
-- [ ] Review access policies and management exposure.
-- [ ] Test segmentation boundaries.
+### 13. Check security and voice quality
+- [ ] Check traffic rules and network separation.
+- [ ] Check QoS support if the devices allow it.
+- [ ] Make sure management access is not open to everyone.
 
-### 14: End-to-end testing
-- [ ] Test VLANs, routing, redundancy, firewall, branch, DHCP/TFTP, and VoIP.
-- [ ] Record actual results and unresolved issues.
+### 14. Test the whole lab
+- [ ] Test VLANs, routing, backup links, firewalls, branch access, DHCP, and phones.
+- [ ] Record what worked and what still needs fixing.
 
-### 15: Portfolio publication
-- [ ] Finalize diagrams and documentation.
-- [ ] Publish sanitized configurations and evidence.
-- [ ] Record demonstration.
-- [ ] Update LinkedIn with verified capabilities.
+### 15. Finish the portfolio
+- [ ] Update the diagrams and instructions.
+- [ ] Add safe-to-share configurations and screenshots.
+- [ ] Record a short walkthrough.
+- [ ] Update LinkedIn only with features that have been built and tested.
 
-## Definition of done
-A milestone is complete when configuration is saved, tests demonstrate expected behavior, evidence is captured, documentation reflects actual behavior, and sensitive/proprietary material is excluded.
+## When is a stage finished?
+
+A stage is finished when the settings are saved, the tests pass, screenshots or other proof are saved, and the notes match what is really working. Remove passwords and other private information before uploading files.
