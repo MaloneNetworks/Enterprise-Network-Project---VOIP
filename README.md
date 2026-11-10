@@ -50,7 +50,7 @@ The goal is to create a network that brings several technologies together:
 
 - **Switching and VLANs** — separate departments and devices into their own networks.
 - **Routing and redundancy** — connect the networks and practice keeping things online when a link or device fails.
-- **Firewalls and network security** — work with Cisco ASA and FortiGate, build security rules, and control traffic between network zones.
+- **Firewalls and network security** — I'm deliberately using both a **Cisco ASA** and a **FortiGate** so I can get hands-on experience with both firewall platforms. I want to learn their different interfaces, configuration methods, security policies, NAT, and troubleshooting workflows rather than limiting the project to just one vendor.
 - **DMZ and servers** — create a separate network for services that need to be reachable from outside.
 - **Branch connectivity** — connect a remote office to the main site and practice VPN technologies.
 - **VoIP** — build a voice network using Cisco Call Manager Express (CME) and a Windows softphone.
