@@ -38,11 +38,11 @@ This is a third-party resource. I'm linking to the original page rather than hos
 
 ## Current topology
 
-![Enterprise Network & VoIP Lab Topology](01-design/topology/v2.0.png)
+**Current working baseline:** Enterprise Network Baseline v1.1 (November 10, 2026).
 
-The diagram above shows the current proposed network layout, including the dual-ISP edge, HQ firewall layers, DMZ, redundant core switches, distribution/access layers, voice VLAN, and branch-office connectivity. Device configurations and links are being implemented and validated in stages.
+The latest baseline includes dual ISPs, GRE over IPsec branch connectivity, Cisco ASA perimeter protection, FortiGate internal segmentation, redundant HSRP core switches, distribution/access layers, a DMZ, and a dedicated VoIP network. It is the intended design reference; implementation and verification are still in progress.
 
-**Topology version:** 2.0. This diagram represents the current design snapshot. The topology will be updated as the lab evolves, devices are configured, and connectivity is tested. Future revisions will be documented here with their version numbers and notable changes.
+See the [topology documentation](01-design/topology/README.md) for the baseline scope and diagram status. The earlier [topology v2.0 snapshot](01-design/topology/v2.0.png) is retained as historical design material.
 
 ## What I'm building
 
