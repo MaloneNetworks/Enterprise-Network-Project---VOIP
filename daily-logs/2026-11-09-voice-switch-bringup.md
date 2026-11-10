@@ -1,91 +1,61 @@
 # Lab Notes — November 9, 2026
 
 ## What I worked on
-Started checking the router and switch that will connect the lab phones.
+Started bringing up the voice network and its switch connections.
 
-## Router check: R-CME-01
+## CME router check: R-CME-01
+- Device: Cisco 3745.
+- IOS: 12.4(25d), Advanced Enterprise image.
+- Memory: about 256 MB.
+- FastEthernet0/0 address: `10.10.30.10`; it showed up/up.
+- The router reports that flash storage is missing or unavailable.
+- CME support, required phone files, and a usable storage location still need to be checked.
 
-Commands used:
+## Voice network plan
+- Voice VLAN: VLAN 30 (`VOIP`).
+- Voice subnet: `10.10.30.0/24`.
+- CME router address: `10.10.30.10`.
+- The voice gateway and DHCP service have not been decided or tested yet.
 
-```cisco
-show version
-show ip interface brief
-show file systems
-show flash:
-```
+## Switch connections and progress
 
-What I found:
-- The router is a Cisco 3745.
-- It runs IOS 12.4(25d), using the Advanced Enterprise image.
-- The router reports about 256 MB of memory.
-- Port FastEthernet0/0 has address `10.10.30.10` and showed as up/up.
-- The router says its flash storage is missing or unavailable.
-- We still need to find out whether this router can run the CME phone software and where the required files could be stored.
+| Device | Port | Connected device | Connected port | Purpose | Progress |
+|---|---|---|---|---|---|
+| SW-Voice | Ethernet0/0 | SW-DIST-01 | Ethernet1/0 | Trunk carrying VLAN 30 | User reports configured and good |
+| SW-Voice | Ethernet0/1 | R-CME-01 | FastEthernet0/0 | Router connection in VLAN 30 | User reports configured and good |
+| SW-DIST-01 | Ethernet1/0 | SW-Voice | Ethernet0/0 | Trunk carrying VLAN 30 | User reports configured and good |
 
-## Voice switch check: SW-Voice
+Both switches use the Cisco IOU L2 image. VLAN 30 and the trunk connection were set up on SW-DIST-01. The user confirmed that SW-DIST-01 is the same switch type as SW-Voice and that the switch setup is good. The exact verification command output was not saved in this log, so capture it during the next session if needed.
 
-- The switch uses the Cisco IOU L2 image.
-- The switch ports were listed in the default VLAN 1.
-- VLANs 1002–1005 were also listed; these are standard built-in VLANs.
-- The switch has not been fully set up for the phone network yet.
-
-## Planned switch connections
-
-| Switch port | Connected device | What the port should do |
-|---|---|---|
-| Ethernet0/0 | SW-DIST-01 | Carry VLAN 30 between switches |
-| Ethernet0/1 | R-CME-01 FastEthernet0/0 | Put the CME router in VLAN 30 |
-
-## Problem found on the switch
-
-When I tried to make Ethernet0/0 a trunk, the switch returned this message:
-
-```text
-An interface whose trunk encapsulation is "Auto" can not be configured to "trunk" mode.
-```
-
-In plain terms, the switch is set to choose the trunk type automatically, and it will not let me turn trunk mode on until the type is set.
-
-The next command to try is:
+## Commands used or planned
+The trunk configuration used on the switch-to-switch link was:
 
 ```cisco
-configure terminal
-interface Ethernet0/0
+interface Ethernet1/0
+ description TRUNK-TO-SW-VOICE
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 30
  no shutdown
-end
 ```
 
-This has **not** been confirmed to work yet. If the first command is rejected, save the exact error and check what this switch image supports. Do not mark the trunk as working until `show interfaces trunk` confirms it.
+If the switch rejects the encapsulation command, use the supported commands for that image and check the trunk state before calling it verified.
 
-The router-facing port should eventually be set up like this, but it has **not** been confirmed as applied:
+## Next steps
+1. Start CORE-01 and collect its model, VLAN, interface, and EtherChannel information.
+2. Check the actual core-to-core and core-to-distribution port connections in GNS3. Do not move existing cables or guess interface numbers.
+3. Configure VLAN 30 on the core/distribution path as needed.
+4. Decide which device will be the voice VLAN gateway and which device will provide DHCP.
+5. Test reachability between the CME router and the voice gateway.
+6. Investigate the 3745 flash-storage issue and confirm CME compatibility.
+7. Connect the Windows 11 softphone VM through the planned VMware `VOIP-LAB` segment and GNS3 Cloud1 path.
+8. Test phone registration and calls only after the network path and CME requirements are confirmed.
 
-```cisco
-configure terminal
-interface Ethernet0/1
- description CONNECTION-TO-R-CME-01
- switchport mode access
- switchport access vlan 30
- no shutdown
-end
-```
+## Lab safety and documentation notes
+- The existing GNS3 cables have not been changed.
+- Do not mark a feature as working until it has been tested.
+- Keep the lab isolated from the home network.
+- Remove passwords and other private information before publishing configurations.
 
-## Progress
-
-- [x] Router starts.
-- [x] Router software version checked.
-- [x] Router FastEthernet0/0 address checked.
-- [x] Cisco IOU L2 voice switch identified.
-- [x] Current VLAN list checked.
-- [ ] Create and confirm VLAN 30.
-- [ ] Fix the trunk setup on SW-Voice Ethernet0/0.
-- [ ] Set and check SW-Voice Ethernet0/1 for VLAN 30.
-- [ ] Set up VLAN 30 on SW-DIST-01 and the links back to the core.
-- [ ] Test that the CME router can be reached.
-- [ ] Fix or work around the router's missing flash storage.
-- [ ] Connect the Windows phone VM and test a softphone.
-
-## Notes
-The existing GNS3 cables have not been moved. Planned settings are labeled as planned until they have been entered and tested.
+## Session status
+Paused after setting up the voice access switch and its distribution-switch connection. Next session starts with CORE-01.
