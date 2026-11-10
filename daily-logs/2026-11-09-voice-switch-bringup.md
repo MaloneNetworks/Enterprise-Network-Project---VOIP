@@ -1,42 +1,52 @@
-# Daily Log — 2026-11-09
+# Lab Notes — November 9, 2026
 
-## Focus
-Bring up the VoIP access switch and validate the CME router connection.
+## What I worked on
+Started checking the router and switch that will connect the lab phones.
 
-## Topology reference
-- Using the user's GNS3 topology v2.0; preserve existing links.
-- R-CME-01 FastEthernet0/0 connects to SW-Voice Ethernet0/1.
-- SW-Voice Ethernet0/0 connects upstream to SW-DIST-01. The distribution-side label appears to be Ethernet1/1; verify in GNS3 before relying on it.
+## Router check: R-CME-01
 
-## R-CME-01 inspection
-Commands run: show version, show ip interface brief, show file systems, show flash:
+Commands used:
 
-Observed:
-- Cisco 3745 / 3700 Software, image C3745-ADVENTERPRISEK9-M.
-- IOS 12.4(25d), Advanced Enterprise.
-- Approximately 256 MB RAM reported by show version.
-- FastEthernet0/0 has 10.10.30.10 and showed up/up in show ip interface brief.
-- show file systems lists flash prefixes, but show flash: returns Device 'flash:' is in REMOVED state and No device available.
-- CME capability and usable storage for CME/phone files are not confirmed. Do not assume CME is ready based only on the IOS image name.
+```cisco
+show version
+show ip interface brief
+show file systems
+show flash:
+```
 
-## SW-Voice inspection
-- Image: Cisco IOU L2.
-- show vlan brief showed VLAN 1 (default) active with switch ports assigned to it; legacy VLANs 1002–1005 were also present.
-- The first attempt, show vlan br, was rejected; the abbreviated command sho vla br succeeded.
-- The switch has not yet been fully configured for this lab.
+What I found:
+- The router is a Cisco 3745.
+- It runs IOS 12.4(25d), using the Advanced Enterprise image.
+- The router reports about 256 MB of memory.
+- Port FastEthernet0/0 has address `10.10.30.10` and showed as up/up.
+- The router says its flash storage is missing or unavailable.
+- We still need to find out whether this router can run the CME phone software and where the required files could be stored.
 
-## Intended voice switch port plan
-| Interface | Connection | Intended role |
+## Voice switch check: SW-Voice
+
+- The switch uses the Cisco IOU L2 image.
+- The switch ports were listed in the default VLAN 1.
+- VLANs 1002–1005 were also listed; these are standard built-in VLANs.
+- The switch has not been fully set up for the phone network yet.
+
+## Planned switch connections
+
+| Switch port | Connected device | What the port should do |
 |---|---|---|
-| Ethernet0/0 | SW-DIST-01 | 802.1Q trunk carrying VLAN 30 |
-| Ethernet0/1 | R-CME-01 FastEthernet0/0 | Access VLAN 30 |
+| Ethernet0/0 | SW-DIST-01 | Carry VLAN 30 between switches |
+| Ethernet0/1 | R-CME-01 FastEthernet0/0 | Put the CME router in VLAN 30 |
 
-## Trunk encapsulation issue
-The trunk command on Ethernet0/0 was rejected with this message:
+## Problem found on the switch
 
-> An interface whose trunk encapsulation is "Auto" can not be configured to "trunk" mode.
+When I tried to make Ethernet0/0 a trunk, the switch returned this message:
 
-Next troubleshooting step proposed but not yet confirmed successful:
+```text
+An interface whose trunk encapsulation is "Auto" can not be configured to "trunk" mode.
+```
+
+In plain terms, the switch is set to choose the trunk type automatically, and it will not let me turn trunk mode on until the type is set.
+
+The next command to try is:
 
 ```cisco
 configure terminal
@@ -48,9 +58,9 @@ interface Ethernet0/0
 end
 ```
 
-If the encapsulation command is unavailable or rejected, capture the exact error and inspect show version, show interfaces Ethernet0/0 switchport, and available switchport commands before choosing an image-specific alternative. Do not claim the trunk is configured until show interfaces trunk verifies it.
+This has **not** been confirmed to work yet. If the first command is rejected, save the exact error and check what this switch image supports. Do not mark the trunk as working until `show interfaces trunk` confirms it.
 
-Intended CME-facing access configuration (not yet confirmed as applied):
+The router-facing port should eventually be set up like this, but it has **not** been confirmed as applied:
 
 ```cisco
 configure terminal
@@ -62,18 +72,20 @@ interface Ethernet0/1
 end
 ```
 
-## Current status
-- [x] R-CME-01 boots and IOS version identified.
-- [x] R-CME-01 Fa0/0 IP observed as 10.10.30.10 and up/up.
-- [x] SW-Voice identified as Cisco IOU L2.
-- [x] Default VLAN state inspected.
-- [ ] Confirm VLAN 30 creation.
-- [ ] Resolve trunk encapsulation issue on SW-Voice Ethernet0/0.
-- [ ] Configure/verify SW-Voice Ethernet0/1 as access VLAN 30.
-- [ ] Configure SW-DIST-01 and carry VLAN 30 end-to-end.
-- [ ] Verify gateway/routing and reachability to 10.10.30.10.
-- [ ] Resolve CME storage/flash and release compatibility.
-- [ ] Connect Windows VOIP-LAB VM through GNS3 Cloud and test a softphone.
+## Progress
+
+- [x] Router starts.
+- [x] Router software version checked.
+- [x] Router FastEthernet0/0 address checked.
+- [x] Cisco IOU L2 voice switch identified.
+- [x] Current VLAN list checked.
+- [ ] Create and confirm VLAN 30.
+- [ ] Fix the trunk setup on SW-Voice Ethernet0/0.
+- [ ] Set and check SW-Voice Ethernet0/1 for VLAN 30.
+- [ ] Set up VLAN 30 on SW-DIST-01 and the links back to the core.
+- [ ] Test that the CME router can be reached.
+- [ ] Fix or work around the router's missing flash storage.
+- [ ] Connect the Windows phone VM and test a softphone.
 
 ## Notes
-No changes were made to existing topology cabling. Treat unverified commands and design values as planned, not completed. Save sanitized configurations and test results as work progresses.
+The existing GNS3 cables have not been moved. Planned settings are labeled as planned until they have been entered and tested.
