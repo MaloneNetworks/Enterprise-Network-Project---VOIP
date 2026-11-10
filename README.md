@@ -74,6 +74,10 @@ For each milestone, save sanitized configurations, verification output, topology
 - [IP addressing plan](documentation/ip-addressing.md)
 - [Port mapping](documentation/port-mapping.md)
 - [VoIP implementation notes](voip/README.md)
+- [CME configuration plan](voip/cme-configuration.md)
+- [Windows softphone setup](voip/softphone-setup.md)
+- [Lab build instructions](documentation/lab-instructions.md)
+- [Network Chaos Lab](network-chaos-lab/README.md)
 - [Test plan](testing/test-plan.md)
 
 Independent educational lab. Product names and trademarks belong to their respective owners; no affiliation or endorsement is implied.
