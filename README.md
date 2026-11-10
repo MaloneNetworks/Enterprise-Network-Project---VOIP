@@ -147,6 +147,20 @@ I'm building this in stages so I can test each part before moving on:
 8. Test connectivity, security policies, failover, and VoIP calls.
 9. Build the repeatable Python troubleshooting exercises and document the results.
 
+## Lab documentation
+
+The documentation is being organized so the network can be rebuilt and checked without guessing.
+
+- [Network cut sheet](documentation/CUT-SHEET.md) — device connections, port assignments, VLANs, and IP plan. This is the source of truth for the lab design.
+- [Lab guide](documentation/LAB-GUIDE.md) — project goals, network layout, technologies, and how the pieces fit together.
+- [Build instructions](documentation/BUILD-INSTRUCTIONS.md) — ordered setup steps, configuration workflow, and verification commands.
+- [Implementation roadmap](documentation/implementation-roadmap.md) — build stages and progress.
+- [Device inventory](documentation/device-inventory.md) — device images, software versions, and capabilities.
+- [IP addressing plan](documentation/ip-addressing.md) — VLAN networks and planned addresses.
+- [Port mapping](documentation/port-mapping.md) — cable endpoints and interface assignments.
+
+The cut sheet and diagram will be updated whenever the actual GNS3 topology changes. Planned values will stay marked as draft until verified.
+
 ## Follow along
 
 I'm keeping the project organized so the build can be followed and repeated. The repository includes:
