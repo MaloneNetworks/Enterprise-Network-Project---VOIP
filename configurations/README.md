@@ -1,12 +1,12 @@
-# Device Configurations
+# Saved Device Settings
 
-Store sanitized, text-based configuration exports by device category.
+Save text copies of device settings in the folders for routers, switches, and firewalls.
 
-Recommended organization:
+Folders:
 - `routers/`
 - `core-switches/`
 - `distribution-switches/`
 - `access-switches/`
 - `firewalls/`
 
-Before committing, remove credentials, pre-shared keys, SNMP communities, certificates, tokens, and any other secrets. Do not upload IOS images or licensed firmware.
+**Before uploading:** remove passwords, shared keys, SNMP community strings, certificates, tokens, and any other private information. Do not upload Cisco IOS images or licensed phone firmware.
