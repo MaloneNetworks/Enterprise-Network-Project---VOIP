@@ -34,8 +34,33 @@ The goal is to create a network that brings several technologies together:
 - **DMZ and servers** — create a separate network for services that need to be reachable from outside.
 - **Branch connectivity** — connect a remote office to the main site and practice VPN technologies.
 - **VoIP** — build a voice network using Cisco Call Manager Express (CME) and a Windows softphone.
+- **VM bridge** — connect a Windows virtual machine to the GNS3 network so it can act like a real computer plugged into one of the lab switches.
 
-I also want to add a troubleshooting mode that intentionally introduces network problems. The idea is to randomly break one part of the lab, then work through the symptoms and figure out what went wrong.
+## What is the VM bridge?
+
+A **VM bridge** is the connection that lets a virtual machine communicate with devices in the network lab. In this project, I plan to connect a Windows 11 VM in VMware Workstation to a VMware LAN Segment named `VOIP-LAB`. That segment will connect through the GNS3 VM's network adapter and a GNS3 Cloud node into the voice switch.
+
+In simple terms, it makes the Windows VM behave like a computer plugged into the lab with an Ethernet cable. That means I can use it to test network access and, eventually, run a softphone and make calls through the VoIP setup.
+
+The planned path is:
+
+```text
+Windows 11 VM
+    |
+VMware LAN Segment: VOIP-LAB
+    |
+GNS3 VM network adapter (eth1)
+    |
+GNS3 Cloud node
+    |
+SW-Voice
+    |
+Voice VLAN 30
+    |
+CME router
+```
+
+This connection is still being built and tested. The Windows VM will keep its separate NAT adapter for normal internet access; the lab connection is intended to stay separate from the home network.
 
 ## Tools and environment
 
@@ -48,8 +73,9 @@ I also want to add a troubleshooting mode that intentionally introduces network 
 | FortiGate | Get hands-on experience with Fortinet firewall administration |
 | Cisco 3745 | Evaluate as the router for the CME/VoIP portion |
 | Windows 11 | Host the planned softphone endpoint |
+| Python (planned) | Automate controlled network faults for daily troubleshooting practice |
 
-Some devices are already placed and connected in GNS3. The network has not been configured yet, so the addressing and feature details below are still a working design.
+Some devices are already placed and connected in GNS3. The network has not been fully configured yet, so the addressing and feature details below are still a working design.
 
 ## Current design
 
@@ -64,7 +90,28 @@ The voice portion is planned around:
 | Windows VM | `VOIP-PHONE-01` |
 | VMware network segment | `VOIP-LAB` |
 
-These values are not configured or verified yet. I'll update the documentation as the design is tested and finalized.
+These values are not all configured or verified yet. I'll update the documentation as the design is tested and finalized.
+
+## Daily network troubleshooting exercise
+
+I don't just want to build the network and leave it running. I want to use it as a daily troubleshooting workout.
+
+The plan is to write a **Python script**, or a similar automation tool, that can introduce one controlled problem into the lab. For example, it could put a switch port in the wrong VLAN, remove a VLAN from a trunk, change a route, cause an HSRP problem, or add a firewall rule that blocks traffic.
+
+My daily routine will look like this:
+
+1. Log in to the lab and start the network.
+2. Run the script to introduce one planned fault.
+3. Use the symptoms, command output, and connectivity tests to figure out what is broken.
+4. Fix the problem myself without being told the answer.
+5. Run checks to prove the network is working again.
+6. Save my notes and results, then shut down or log off from the lab.
+
+The goal is to make this a repeatable daily exercise: log in, find the problem, fix it, verify the repair, and log off. Over time, I can rotate through different faults and make the exercises harder.
+
+The script will be designed to work only inside this isolated GNS3 lab. It should use a list of known, reversible faults rather than make random changes with no safety checks. I'll keep known-good configurations, include a way to reset the lab, and record which fault was used. I don't want the script touching my home network, physical network adapters, or anything outside the lab.
+
+This automation is a planned feature, not something that is already built. I'll work on it after the main network is configured, tested, and backed up.
 
 ## How I'm approaching the project
 
@@ -78,13 +125,7 @@ I'm building this in stages so I can test each part before moving on:
 6. Bring up the branch connection.
 7. Validate the CME router and connect the Windows softphone.
 8. Test connectivity, security policies, failover, and VoIP calls.
-9. Add repeatable troubleshooting exercises and document the results.
-
-## The troubleshooting challenge
-
-One feature I'm planning is a small **Network Chaos Lab**. It will randomly introduce one controlled issue — for example, a VLAN mistake, a broken trunk, a routing problem, an HSRP issue, or a firewall rule blocking traffic.
-
-The challenge will be to identify the cause, repair it, and verify that the network is working again. This part is still in the design stage; it will be developed after the main network is working and backed up.
+9. Build the repeatable Python troubleshooting exercises and document the results.
 
 ## Follow along
 
@@ -105,7 +146,6 @@ As I complete each stage, I'll add diagrams, sanitized configurations, screensho
 ## A note on project status
 
 This is an independent learning project. The topology is being prepared, and the configuration and testing work is still ahead. I'll distinguish planned features from features that are actually implemented and verified.
-
 
 ## Check out my other labs & share feedback
 
