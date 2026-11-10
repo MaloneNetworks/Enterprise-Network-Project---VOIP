@@ -1,0 +1,34 @@
+# Secrets and local credentials
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# Large/local appliance and virtual-machine files
+*.gns3project
+*.vmdk
+*.vdi
+*.qcow2
+*.iso
+*.ova
+*.ovf
+*.bin
+*.img
+*.unl
+
+# Sensitive device backups
+*-private.cfg
+*-secret.cfg
+*-running-config-private.txt
+
+# Operating system / editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
