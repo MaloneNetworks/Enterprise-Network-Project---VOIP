@@ -6,6 +6,24 @@ I'm building this project to get hands-on experience designing, setting up, and 
 
 This is a work in progress, and I'm documenting the process as I go — including the design decisions, configurations, things that break, and how I fix them.
 
+## New to GNS3 or virtualization?
+
+No worries — here's the quick version.
+
+**GNS3** is a program that lets you build a computer network on your PC without needing a room full of physical routers, switches, and firewalls. You add virtual versions of network devices to a workspace, connect them with virtual cables, and then configure them much like you would real equipment. You can practice things like VLANs, routing, firewalls, and troubleshooting in that virtual environment.
+
+**Virtualization** is the technology that lets one physical computer run multiple separate computers, called *virtual machines (VMs)*. Each VM behaves like its own computer, with its own operating system and virtual network connections.
+
+For this project, I'm using:
+
+- **GNS3** to create the network topology and connect the virtual network devices.
+- **VMware Workstation** to run virtual machines, including the GNS3 virtual machine and a Windows 11 endpoint.
+- **Virtual network adapters and links** to connect the VMs to the lab, so they can communicate with the routers, switches, and firewalls.
+
+Think of it like building a small IT environment inside one physical PC. The routers, switches, firewalls, servers, and computers are virtual, but the configuration and troubleshooting skills are very similar to working with physical equipment.
+
+You don't need to know GNS3 or virtualization to follow along. I'll document the setup, explain the purpose of each part, and include diagrams, configurations, screenshots, and test results as the project develops.
+
 ## What I'm building
 
 The goal is to create a network that brings several technologies together:
