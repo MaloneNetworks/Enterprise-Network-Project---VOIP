@@ -32,6 +32,12 @@ Some of the Cisco images used for this lab were found in this GitHub repository:
 
 This is a third-party resource. I'm linking to the original page rather than hosting those image files here. Check the repository's own terms and any vendor licensing requirements before downloading or using an image.
 
+## Current topology
+
+![Enterprise Network & VoIP Lab Topology](diagrams/v2.0.png)
+
+The diagram above shows the current proposed network layout, including the dual-ISP edge, HQ firewall layers, DMZ, redundant core switches, distribution/access layers, voice VLAN, and branch-office connectivity. Device configurations and links are being implemented and validated in stages.
+
 ## What I'm building
 
 The goal is to create a network that brings several technologies together:
