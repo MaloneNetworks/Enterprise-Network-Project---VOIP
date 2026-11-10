@@ -19,14 +19,14 @@ Each core switch has four ports, as confirmed by the user. Keep the current cabl
 |---|---|---|---|---|---|---|
 | ACCESS-ADMIN | SW-DIST-01 | Check in GNS3 | SW-Admin | Check in GNS3 | Admin network connection | Cable drawn; ports to check |
 | ACCESS-ENG | SW-DIST-01 | Check in GNS3 | SW-ENG | Check in GNS3 | Engineering network connection | Cable drawn; ports to check |
-| ACCESS-VOICE | SW-DIST-01 | Ethernet1/1 shown in diagram; check in GNS3 | SW-Voice | Ethernet0/0 | Carries the voice network (VLAN 30) | Cable drawn; switch setup in progress |
+| ACCESS-VOICE | SW-DIST-01 | Ethernet1/0 | SW-Voice | Ethernet0/0 | Carries the voice network (VLAN 30) | Configured; user reports good |
 | ACCESS-SRV | SW-DIST-01 | Check in GNS3 | SW-SRV | Check in GNS3 | Server network connection | Cable drawn; ports to check |
 
 ## Phone network connections
 
 | Link | First device | Port | Second device | Port | Why they are connected | Status |
 |---|---|---|---|---|---|---|
-| CME-VOICE | R-CME-01 | FastEthernet0/0 | SW-Voice | Ethernet0/1 | Connects the CME router to the voice network | Cable shown in v2.0; router address is 10.10.30.10; switch setup in progress |
+| CME-VOICE | R-CME-01 | FastEthernet0/0 | SW-Voice | Ethernet0/1 | Connects the CME router to the voice network | Router address is 10.10.30.10; user reports switch setup is good |
 | VM-BRIDGE | GNS3 Cloud1 | eth1 planned | VMware VOIP-LAB adapter | LAN Segment adapter | Connects the Windows softphone VM to GNS3 | Planned; not tested |
 
 ## Other cables to record
@@ -35,8 +35,8 @@ Add the ports for ISP1, ISP2, the internet cloud, HQ-EDGE, ASA-HQ-01, FortiGate,
 
 ## Rules for this page
 
-- Do not move or change existing cables unless we find a real problem and agree to change them.
+- Do not move or change existing cables unless we find a real problem and agree to change it.
 - Write down the port at both ends of every cable.
 - Use the exact port names shown by GNS3.
 - Check the switch settings after configuring a port.
-- Mark a link as confirmed only after checking it in GNS3 and on the devices.
+- Mark a link as verified only after checking it in GNS3 and on the devices.
