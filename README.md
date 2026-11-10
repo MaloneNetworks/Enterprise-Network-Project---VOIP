@@ -89,6 +89,7 @@ This connection is still being built and tested. The Windows VM will keep its se
 | Tool / platform | How I'm using it |
 |---|---|
 | GNS3 | Build and run the network topology |
+| Cisco CML Personal | Access to 20 Cisco virtual images for building and testing Cisco network labs |
 | VMware Workstation | Run the GNS3 environment and Windows endpoint VM |
 | Cisco IOS IOU L2/L3 | Practice switching, VLANs, routing, and redundancy |
 | Cisco ASA | Practice firewall rules, NAT, and DMZ security |
