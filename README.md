@@ -24,6 +24,14 @@ Think of it like building a small IT environment inside one physical PC. The rou
 
 You don't need to know GNS3 or virtualization to follow along. I'll document the setup, explain the purpose of each part, and include diagrams, configurations, screenshots, and test results as the project develops.
 
+## Image resources
+
+Some of the Cisco images used for this lab were found in this GitHub repository:
+
+**[LINK TO WHERE I GOT A FEW IMAGES — Cisco Images for GNS3 and EVE-NG](https://github.com/hegdepavankumar/Cisco-Images-for-GNS3-and-EVE-NG)**
+
+This is a third-party resource. I'm linking to the original page rather than hosting those image files here. Check the repository's own terms and any vendor licensing requirements before downloading or using an image.
+
 ## What I'm building
 
 The goal is to create a network that brings several technologies together:
