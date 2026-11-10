@@ -19,14 +19,14 @@ Each IOU L3 core switch has four ports according to the user. Preserve the curre
 |---|---|---|---|---|---|---|
 | ACCESS-ADMIN | SW-DIST-01 | Diagram label to verify | SW-Admin | Diagram label to verify | Admin access uplink | Drawn; verify |
 | ACCESS-ENG | SW-DIST-01 | Diagram label to verify | SW-ENG | Diagram label to verify | Engineering access uplink | Drawn; verify |
-| ACCESS-VOICE | SW-DIST-01 | Diagram label to verify | SW-Voice | Diagram label to verify | Voice access uplink | Drawn; verify |
+| ACCESS-VOICE | SW-DIST-01 | Ethernet1/1 (diagram label; verify in GNS3) | SW-Voice | Ethernet0/0 | Voice access uplink / VLAN 30 trunk | Cable shown in v2.0 diagram; switch config in progress |
 | ACCESS-SRV | SW-DIST-01 | Diagram label to verify | SW-SRV | Diagram label to verify | Server access uplink | Drawn; verify |
 
 ## VoIP links
 
 | Link | Device A | Interface A | Device B | Interface B | Purpose | State |
 |---|---|---|---|---|---|---|
-| CME-VOICE | R-CME-01 | FastEthernet interface to verify | SW-Voice | Switch port to verify | CME reachability / voice access | Planned; confirm actual cable |
+| CME-VOICE | R-CME-01 | FastEthernet0/0 | SW-Voice | Ethernet0/1 | CME reachability / voice access (VLAN 30) | Cable shown in v2.0 diagram; router Fa0/0 configured as 10.10.30.10; switch config in progress |
 | VM-BRIDGE | GNS3 Cloud1 | eth1 candidate | VMware VOIP-LAB adapter | LAN Segment adapter | Windows VM to GNS3 | Intended; not validated |
 
 ## Other topology links
