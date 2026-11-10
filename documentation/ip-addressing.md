@@ -1,69 +1,76 @@
-# Enterprise IP Addressing Plan
+# IP Address Plan
 
-> **Status: Draft / proposed design.** The network is not configured yet. These addresses are a working plan for the lab, not verified live settings. Confirm device interfaces, firewall transit networks, existing labels in the GNS3 topology, and gateway ownership before applying configurations.
+> **Status: Draft.** These are planned addresses, not proof that the network is configured. Check the GNS3 diagram and decide which device owns each gateway before using these addresses.
 
-## VLAN and subnet plan
+## VLAN and network plan
 
-| VLAN | Name | Subnet | Proposed default gateway | Intended use |
+A **VLAN** is a way to keep groups of devices on separate networks, even when they use the same physical switches. A **gateway** is the address a device uses when it needs to reach another network.
+
+| VLAN | Name | Network | Planned gateway | Used for |
 |---:|---|---|---|---|
-| 10 | ADMIN | 10.10.10.0/24 | 10.10.10.1 | Administration endpoints |
-| 20 | ENGINEERING | 10.10.20.0/24 | 10.10.20.1 | Engineering endpoints |
-| 30 | VOICE | 10.10.30.0/24 | 10.10.30.1 | VoIP endpoints and CME reachability |
+| 10 | ADMIN | 10.10.10.0/24 | 10.10.10.1 | Admin computers |
+| 20 | ENGINEERING | 10.10.20.0/24 | 10.10.20.1 | Engineering computers |
+| 30 | VOICE | 10.10.30.0/24 | 10.10.30.1 | Phones and CME |
 | 40 | SERVERS | 10.10.40.0/24 | 10.10.40.1 | Internal servers |
-| 60 | MANAGEMENT | 10.10.60.0/24 | 10.10.60.1 | Network-device management |
-| 70 | BRANCH | 10.10.70.0/24 | 10.10.70.1 | Branch user/data network |
-| 100 | DMZ | 172.16.80.0/24 | TBD | Public-facing DMZ services |
-| 999 | NATIVE-BLACKHOLE | No IP subnet | None | Unused native VLAN on trunks, subject to image support |
+| 60 | MANAGEMENT | 10.10.60.0/24 | 10.10.60.1 | Switch and network-device management |
+| 70 | BRANCH | 10.10.70.0/24 | 10.10.70.1 | Branch office computers |
+| 100 | DMZ | 172.16.80.0/24 | To decide | Servers that may need outside access |
+| 999 | NATIVE-BLACKHOLE | No IP network | None | Unused VLAN for trunk links, if supported |
 
-The VLAN IDs and broad purposes follow the current topology design. The /24 networks and gateway addresses are proposed conventions and must be checked against any IP labels already present in the GNS3 project.
+The VLAN numbers follow the current diagram. The network and gateway addresses are still a draft. Check them against the actual project before configuring devices.
 
-## Proposed infrastructure reservations
+## Addresses we may reserve
 
-| Network | Device / purpose | Proposed address | Notes |
+| Network | Device or use | Planned address | Notes |
 |---|---|---|---|
-| VLAN 10 | HSRP virtual gateway | 10.10.10.1 | Only if HSRP is selected |
-| VLAN 20 | HSRP virtual gateway | 10.10.20.1 | Only if HSRP is selected |
-| VLAN 30 | HSRP virtual gateway | 10.10.30.1 | Only if HSRP is selected |
-| VLAN 40 | HSRP virtual gateway | 10.10.40.1 | Only if HSRP is selected |
-| VLAN 60 | HSRP virtual gateway | 10.10.60.1 | Only if HSRP is selected |
-| VLAN 70 | HSRP virtual gateway | 10.10.70.1 | Only if branch routing design uses this gateway |
-| VLAN 30 | R-CME-01 | 10.10.30.10 | Candidate CME address; verify interface and CME support |
-| VLAN 30 | Softphone VM | DHCP reservation or 10.10.30.100 | Do not assign until L2 bridge and DHCP path are validated |
-| VLAN 40 | Internal services | 10.10.40.0/24 | Reserve low addresses for servers; assign after inventory |
-| VLAN 60 | Switch management | 10.10.60.0/24 | Reserve static addresses after switch inventory |
+| VLAN 10 | Main/backup gateway address | 10.10.10.1 | Only if we use HSRP |
+| VLAN 20 | Main/backup gateway address | 10.10.20.1 | Only if we use HSRP |
+| VLAN 30 | Main/backup gateway address | 10.10.30.1 | Only if we use HSRP |
+| VLAN 40 | Main/backup gateway address | 10.10.40.1 | Only if we use HSRP |
+| VLAN 60 | Main/backup gateway address | 10.10.60.1 | Only if we use HSRP |
+| VLAN 70 | Branch gateway address | 10.10.70.1 | Depends on the branch design |
+| VLAN 30 | R-CME-01 | 10.10.30.10 | Router address already entered; still needs network testing |
+| VLAN 30 | Windows softphone VM | DHCP or 10.10.30.100 | Do not assign until the connection and DHCP plan work |
+| VLAN 40 | Internal servers | 10.10.40.0/24 | Pick individual addresses after checking the servers |
+| VLAN 60 | Switch management | 10.10.60.0/24 | Pick individual addresses after checking the switches |
 
-## DHCP planning
+HSRP is a feature that lets two routers or switches share one gateway address. The .1 addresses above should only be used as shared gateway addresses if we actually configure HSRP.
 
-| VLAN | DHCP scope proposal | Exclusions / reservations |
+## DHCP plan
+
+DHCP automatically gives devices their IP settings. These ranges are ideas only; no DHCP service has been chosen yet.
+
+| VLAN | Possible address range | Notes |
 |---:|---|---|
-| 10 | 10.10.10.100–10.10.10.199 | .1 gateway; reserve infrastructure |
-| 20 | 10.10.20.100–10.10.20.199 | .1 gateway; reserve infrastructure |
-| 30 | 10.10.30.100–10.10.30.199 | .1 gateway; .10 CME candidate; Option 150 only after TFTP/CME validation |
-| 40 | Static assignments preferred | Servers and infrastructure |
-| 60 | Static assignments preferred | Network management |
-| 70 | 10.10.70.100–10.10.70.199 | .1 gateway; branch services excluded |
-| 100 | Static assignments preferred | DMZ servers |
+| 10 | 10.10.10.100–10.10.10.199 | Keep gateway and network-device addresses out of this range |
+| 20 | 10.10.20.100–10.10.20.199 | Keep gateway and network-device addresses out of this range |
+| 30 | 10.10.30.100–10.10.30.199 | CME may need to provide phone setup information |
+| 40 | Mostly static addresses | Servers should have addresses that do not change |
+| 60 | Mostly static addresses | Network devices should have addresses that do not change |
+| 70 | 10.10.70.100–10.10.70.199 | Keep gateway and branch-service addresses out of this range |
+| 100 | Static addresses | DMZ servers should have fixed addresses |
 
-DHCP server location, relay/helper configuration, and actual pools are undecided. Do not configure multiple DHCP servers for the same scope. If CME supplies DHCP, define the scope there only after routing and voice VLAN behavior are validated.
+We still need to choose which device gives out addresses. Only one DHCP service should manage each address range. If phones need a TFTP server address (often sent using DHCP Option 150), we will add it after CME and TFTP are confirmed to work.
 
-## WAN, transit, and tunnel networks
+## Links between routers and firewalls
 
-These links require dedicated point-to-point addressing and must not be guessed from the LAN VLAN plan. Assign them only after inventorying the exact router/firewall interfaces and the IP labels in the topology:
+These links need their own IP addresses. We should not guess them. First check the exact ports and labels in the GNS3 diagram:
+
 - ISP1 to HQ-EDGE
 - ISP2 to HQ-EDGE
 - HQ-EDGE to ASA-HQ-01
 - ASA-HQ-01 to FortiGate
 - FortiGate to CORE-01 and CORE-02
-- Branch WAN underlay and GRE/IPsec tunnel
-- Any DMZ transit segments
+- Branch internet connection and GRE/IPsec tunnel
+- DMZ connections
 
-A /30 or /31 may be appropriate for point-to-point routed links depending on platform support. Record both endpoint addresses and masks in the port map.
+A /30 or /31 network is often used for a direct router-to-router link. We will choose one that the device supports and write down the address at both ends.
 
-## Address allocation rules
-1. Reserve .1 for the virtual gateway only where HSRP is actually deployed.
-2. Reserve low addresses for infrastructure and statically addressed services.
-3. Exclude static addresses from DHCP scopes.
-4. Record DHCP source, relay/helper, DNS, and TFTP details for every scope.
-5. Do not assume the core switches own every VLAN gateway; confirm the firewall/router boundary first.
-6. Avoid duplicate default gateways, overlapping subnets, and multiple DHCP authorities.
-7. Reconcile this draft with the GNS3 diagram before configuration.
+## Address rules
+
+1. Do not give two devices the same IP address.
+2. Keep fixed server and network-device addresses out of DHCP ranges.
+3. Use .1 as a shared gateway only if we set up HSRP.
+4. Write down which device provides DHCP and DNS.
+5. Do not assume the core switches are the gateway for every VLAN.
+6. Check the diagram and this plan together before entering configurations.
