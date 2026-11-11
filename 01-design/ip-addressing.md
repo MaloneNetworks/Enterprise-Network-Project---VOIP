@@ -36,6 +36,17 @@ The VLAN numbers follow the current diagram. The network and gateway addresses a
 
 HSRP is a feature that lets two routers or switches share one gateway address. The .1 addresses above should only be used as shared gateway addresses if we actually configure HSRP.
 
+## ASA-to-FortiGate transit assignment
+
+| Device | Interface | Address |
+|---|---|---|
+| ASA-HQ-01 | E1 | `10.255.0.9/30` |
+| FortiGate | E0 | `10.255.0.10/30` |
+
+Network: `10.255.0.8/30` · Usable addresses: `10.255.0.9–10.255.0.10` · Broadcast: `10.255.0.11`.
+
+This is the agreed addressing plan. It has not yet been configured or tested.
+
 ## DHCP plan
 
 DHCP automatically gives devices their IP settings. These ranges are ideas only; no DHCP service has been chosen yet.
@@ -59,7 +70,7 @@ These links need their own IP addresses. We should not guess them. First check t
 - ISP1 to HQ-EDGE
 - ISP2 to HQ-EDGE
 - HQ-EDGE to ASA-HQ-01
-- ASA-HQ-01 to FortiGate
+- ASA-HQ-01 to FortiGate: network `10.255.0.8/30`; ASA E1 `10.255.0.9/30`, FortiGate E0 `10.255.0.10/30`
 - FortiGate to CORE-01 and CORE-02
 - Branch internet connection and GRE/IPsec tunnel
 - DMZ connections
