@@ -15,7 +15,7 @@
 | Switching | Cisco IOU L2 and L3 |
 | Voice | Cisco 3745 CME candidate and Windows 11 softphone VM |
 | Voice VMware segment | `VOIP-LAB` |
-| Topology diagram | [Current topology image](../diagrams/v2.0.png) |
+| Topology diagram | [Enterprise Network Baseline v1.2](topology/Enterprise_Network_BASELINE_v1.2.png) |
 | Editable diagrams | `diagrams/source/` (add the matching `.drawio` source file when available) |
 
 ## 2. VLAN and IP address plan
@@ -35,7 +35,15 @@ These are the current proposed networks. Confirm gateway ownership, DHCP source,
 
 **Gateway note:** The `.1` addresses are proposed only. If HSRP is used, these may become virtual gateway addresses. Do not configure them until we decide which devices provide Layer 3 routing.
 
-## 3. Device inventory summary
+## 3. ASA-to-FortiGate transit
+
+| Link | Network | Device A / interface / IP | Device B / interface / IP | Status |
+|---|---|---|---|---|
+| ASA-FGT-TRANSIT-01 | `10.255.0.8/30` | ASA-HQ-01 E1 — `10.255.0.9/30` | FortiGate E0 — `10.255.0.10/30` | Addressing agreed; configuration and testing pending |
+
+Network `10.255.0.8/30` has usable addresses `10.255.0.9` and `10.255.0.10`, with broadcast address `10.255.0.11`.
+
+## 4. Device inventory summary
 
 | Device name | Role | Platform / image known so far | Interfaces / notes | Status |
 |---|---|---|---|---|
@@ -54,12 +62,13 @@ These are the current proposed networks. Confirm gateway ownership, DHCP source,
 | VOIP-PHONE-01 | Windows softphone endpoint | Windows 11 VM | VMware NAT adapter plus `VOIP-LAB` LAN Segment adapter planned | VM exists; lab-side path not yet verified |
 | GNS3 VM | Runs GNS3 nodes | VMware VM | `eth0` reported as `192.168.4.79/22`; `eth1` intended for lab bridge | `eth1` path not yet verified |
 
-## 4. Known cable and interface assignments
+## 5. Known cable and interface assignments
 
 Do not move existing cables to match this table. Check the actual GNS3 link endpoints before entering interface configuration.
 
 | Link ID | Device A | Interface A | Device B | Interface B | Purpose | Status |
 |---|---|---|---|---|---|---|
+| ASA-FGT-TRANSIT-01 | ASA-HQ-01 | `Ethernet1` (E1) | FortiGate | `Ethernet0` (E0) | Routed firewall transit; `10.255.0.8/30` | Interface mapping checked; addressing agreed |
 | VOICE-UPLINK-01 | SW-DIST-01 | `Ethernet1/0` | SW-Voice | `Ethernet0/0` | Distribution-to-voice-switch uplink | Previously recorded; verify in GNS3 |
 | CME-LINK-01 | SW-Voice | `Ethernet0/1` | R-CME-01 | `FastEthernet0/0` | CME router connection to voice VLAN | Previously recorded; verify in GNS3 |
 | CORE-PEER-01 | CORE-01 | To verify | CORE-02 | To verify | First planned core peer link | Cable/ports need confirmation |
@@ -70,7 +79,7 @@ Do not move existing cables to match this table. Check the actual GNS3 link endp
 
 Add every remaining cable from the GNS3 workspace before calling the cut sheet complete. This includes ISP links, HQ edge/firewall links, DMZ links, branch links, server links, and endpoint connections.
 
-## 5. Reserved and planned endpoint addresses
+## 6. Reserved and planned endpoint addresses
 
 | Device / service | VLAN | Planned address | Status / notes |
 |---|---:|---|---|
@@ -81,7 +90,7 @@ Add every remaining cable from the GNS3 workspace before calling the cut sheet c
 | Switch management | 60 | To assign | Assign after management VLAN design is approved |
 | DMZ servers | 100 | To assign | Assign after firewall and DMZ design is approved |
 
-## 6. Interface verification checklist
+## 7. Interface verification checklist
 
 For each cable, record both ends exactly as shown in GNS3 and verify the interface on the device.
 
@@ -106,7 +115,7 @@ show interfaces trunk
 show etherchannel summary
 ```
 
-## 7. Change control
+## 8. Change control
 
 When a port, VLAN, address, or cable changes:
 
