@@ -40,11 +40,11 @@ This is a third-party resource. I'm linking to the original page rather than hos
 
 **Current working baseline:** Enterprise Network Baseline v1.1 (November 10, 2026).
 
-The latest baseline includes dual ISPs, GRE over IPsec branch connectivity, Cisco ASA perimeter protection, FortiGate internal segmentation, redundant HSRP core switches, distribution/access layers, a DMZ, and a dedicated VoIP network. It is the intended design reference; implementation and verification are still in progress.
+The baseline includes dual ISP connectivity, GRE over IPsec branch connectivity, Cisco ASA perimeter protection, FortiGate internal segmentation, redundant HSRP core switches, distribution and access layers, a DMZ, and a dedicated VoIP network. The design and IP/interface cut sheet have been reviewed, and the documented connections have been checked against the GNS3 topology. This establishes the initial implementation baseline; device configuration, connectivity, failover, and security testing remain ahead.
 
 ![Enterprise Network Baseline v1.1](01-design/topology/Enterprise_Network_BASELINE_v1.1.png)
 
-See the [topology documentation](01-design/topology/README.md) for the baseline scope and diagram status. The earlier [topology v2.0 snapshot](01-design/topology/v2.0.png) is retained as historical design material.
+See the [topology documentation](01-design/topology/README.md) for the baseline scope and diagram status, and the [network cut sheet](01-design/cut-sheet-working-draft.md) for the device connections, interfaces, VLANs, and addressing reference. The earlier [topology v2.0 snapshot](01-design/topology/v2.0.png) is retained as historical design material.
 
 ## What I'm building
 
