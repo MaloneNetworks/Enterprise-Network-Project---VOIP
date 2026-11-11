@@ -159,7 +159,8 @@ I've organized the documentation into numbered sections so it's easier to find t
 - [Device inventory](01-design/device-inventory.md) — device images, software versions, and capabilities.
 - [IP addressing and VLAN plan](01-design/ip-addressing.md) — VLAN networks and planned addresses.
 - [Port mapping](01-design/port-mapping.md) — cable endpoints and interface assignments.
-- [Build instructions](02-build/BUILD-INSTRUCTIONS.md) — ordered setup steps, configuration workflow, and verification commands.
+- [First-time lab startup instructions](02-build/lab-instructions.md) — how to open, start, operate, and safely shut down the lab.
+- [Build instructions](02-build/BUILD-INSTRUCTIONS.md) — ordered device configuration steps and verification commands.
 - [Implementation roadmap](02-build/implementation-roadmap.md) — build stages and progress.
 - [Lab guide](02-build/LAB-GUIDE.md) — project goals, network layout, technologies, and how the pieces fit together.
 - [VoIP documentation](04-voip/README.md) — CME, extension directory, and Windows softphone setup.
