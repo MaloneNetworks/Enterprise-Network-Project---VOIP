@@ -4,13 +4,16 @@ This folder holds the network design snapshots and their editable source files. 
 
 ## Current working baseline
 
-**Enterprise Network Baseline v1.1** is the current working design baseline as of November 10, 2026.
+**Enterprise Network Baseline v1.2** is the current working design baseline as of November 10, 2026.
+
+- [Enterprise Network Baseline v1.2](Enterprise_Network_BASELINE_v1.2.png) — current working design.
+- [Enterprise Network Baseline v1.1](Enterprise_Network_BASELINE_v1.1.png) — previous revision.
 
 The latest baseline image was supplied in the project conversation. It should be committed here as:
 
 `enterprise-network-baseline-v1.1.png`
 
-The baseline includes:
+The v1.2 baseline includes:
 
 - Dual ISP connections into the HQ edge router
 - GRE over IPsec site-to-site tunnel to the branch
@@ -22,7 +25,7 @@ The baseline includes:
 - DMZ web, mail, and DNS servers
 - Branch office router, switch, endpoint, and VLAN 70
 
-**Status:** Working design baseline. The diagram represents intended architecture and addressing; it does not prove that every device, link, route, firewall policy, or service has been configured and verified in GNS3.
+**Status:** The design and interface mapping have been reviewed against the GNS3 topology. The diagram represents intended architecture and addressing; it does not prove that every IP address, route, firewall policy, or service has been configured and tested.
 
 ## Diagram conventions
 
