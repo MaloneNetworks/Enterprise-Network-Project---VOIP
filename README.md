@@ -50,10 +50,13 @@ The topology and cut sheet are the starting references for the build. They docum
 
 ![Enterprise Network Cut Sheet](01-design/topology/Enterprise%20Network%20Cut%20Sheet.png)
 
+![Cisco CML–GNS3 Integration Diagram](01-design/topology/Cisco-CML-GNS3-Integration.png)
+
 **Design references:**
 
 - [Enterprise Network Baseline v1.4 – Topology](01-design/topology/Enterprise_Network_BASELINE_v1.4.png) — visual layout, device placement, and network connections.
 - [Enterprise Network Cut Sheet](01-design/topology/Enterprise%20Network%20Cut%20Sheet.png) — VLANs, subnetting, gateways, WAN addressing, firewall interfaces, server addressing, and device inventory.
+- [Cisco CML–GNS3 Integration Diagram](01-design/topology/Cisco-CML-GNS3-Integration.png) — the external connector, transit router, switch, and server connections for the separate lab integration.
 - [Topology documentation](01-design/topology/README.md) — baseline scope and diagram status.
 - [IP addressing and VLAN plan](01-design/ip-addressing.md) — detailed addressing reference.
 - [Port mapping](01-design/port-mapping.md) — interface assignments and connection endpoints.
