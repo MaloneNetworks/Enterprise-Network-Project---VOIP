@@ -37,7 +37,7 @@ This close-up shows the CME-side connection from **R-CME-01** through **R1** tow
 
 ![CME-to-Cisco CML connection detail](01-design/topology/CME%20from%20CML.png)
 
-The wider diagram shows the overall GNS3-to-Cisco CML connection, including the external connector, transit router, switch, and server connections.
+The diagram below shows the Cisco CML topology and how it connects to the GNS3 lab.
 
 ![Cisco CML–GNS3 Integration Diagram](01-design/topology/Cisco-CML-GNS3-Integration.png)
 
