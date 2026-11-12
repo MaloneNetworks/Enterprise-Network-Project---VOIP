@@ -48,6 +48,8 @@ The topology and cut sheet are the starting references for the build. They docum
 
 ![Enterprise Network Baseline v1.4](01-design/topology/Enterprise_Network_BASELINE_v1.4.png)
 
+![Enterprise Network Cut Sheet](01-design/topology/Enterprise%20Network%20Cut%20Sheet.png)
+
 **Design references:**
 
 - [Enterprise Network Baseline v1.4 – Topology](01-design/topology/Enterprise_Network_BASELINE_v1.4.png) — visual layout, device placement, and network connections.
