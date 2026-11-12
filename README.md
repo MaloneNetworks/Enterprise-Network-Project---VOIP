@@ -52,11 +52,16 @@ The topology and cut sheet are the starting references for the build. They docum
 
 ![Cisco CML–GNS3 Integration Diagram](01-design/topology/Cisco-CML-GNS3-Integration.png)
 
+The diagram below is a close-up of the CME side of that same integration. It shows the connection from **R-CME-01** into **R1**, then R1's connection toward the external Cisco CML network. Read the two images together: the full integration diagram provides the overall context, and this detail makes the CME-to-R1-to-Cisco CML path easier to follow.
+
+![CME-to-Cisco CML connection detail](01-design/topology/CME%20from%20CML.png)
+
 **Design references:**
 
 - [Enterprise Network Baseline v1.4 – Topology](01-design/topology/Enterprise_Network_BASELINE_v1.4.png) — visual layout, device placement, and network connections.
 - [Enterprise Network Cut Sheet](01-design/topology/Enterprise%20Network%20Cut%20Sheet.png) — VLANs, subnetting, gateways, WAN addressing, firewall interfaces, server addressing, and device inventory.
 - [Cisco CML–GNS3 Integration Diagram](01-design/topology/Cisco-CML-GNS3-Integration.png) — the external connector, transit router, switch, and server connections for the separate lab integration.
+- [CME-to-Cisco CML connection detail](01-design/topology/CME%20from%20CML.png) — a closer view of R-CME-01 connected through R1 toward the external Cisco CML network.
 - [Topology documentation](01-design/topology/README.md) — baseline scope and diagram status.
 - [IP addressing and VLAN plan](01-design/ip-addressing.md) — detailed addressing reference.
 - [Port mapping](01-design/port-mapping.md) — interface assignments and connection endpoints.
