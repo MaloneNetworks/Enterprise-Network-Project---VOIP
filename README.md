@@ -1,26 +1,25 @@
 # Enterprise Network & VoIP Lab
 
-I'm building an enterprise-style network in **GNS3** and **VMware Workstation**. The lab brings together routing, switching, firewalls, servers, branch connectivity, and VoIP.
+Welcome to my Enterprise Network & VoIP lab. I'm building an enterprise-style network using **GNS3**, **Cisco CML Personal**, and **VMware Workstation** to get hands-on experience with networking, security, virtualization, and voice services.
 
-This is a hands-on learning project. I'll document the design, configurations, problems, fixes, and test results as I build it.
+The lab is a work in progress. I'll document the design, configuration steps, troubleshooting, and test results as I build it.
 
-## Current starting design
+## Current network design
 
-**Baseline: Enterprise Network v1.4**
+**Starting baseline: Enterprise Network v1.4**
 
-This is the design I'm using to start the configuration work. It includes:
+Baseline v1.4 is the current reference for the lab. The design includes:
 
-- Two ISP connections and an HQ edge router
-- Cisco ASA perimeter firewall
-- FortiGate internal firewall
-- Redundant Layer 3 core switches
-- Distribution and access switches
-- Separate user, voice, server, and DMZ networks
-- Branch office connected with GRE over IPsec
+- Dual ISP connections and an HQ edge router
+- Cisco ASA perimeter firewall and FortiGate internal firewall
+- Redundant Layer 3 core switches, plus distribution and access layers
+- Separate VLANs for administration, engineering, voice, servers, management, and the branch
+- A DMZ for public-facing services
+- A branch office connected over GRE/IPsec
 - Cisco CME for VoIP
-- A connection between the GNS3 and Cisco CML labs
+- A connection between the GNS3 and Cisco CML environments
 
-The diagrams show the planned design. Not every device or feature is configured and tested yet. I'll update the documentation as each part is built and verified.
+The diagrams below show the planned layout and how the lab environments fit together. They are design references, not a claim that every device and feature is already configured. I'll update them as the build changes.
 
 ### Enterprise topology
 
@@ -28,23 +27,23 @@ The diagrams show the planned design. Not every device or feature is configured 
 
 ### Network cut sheet
 
-The cut sheet is the quick reference for VLANs, subnets, gateways, WAN links, firewall interfaces, servers, and device inventory.
+The cut sheet puts the key details in one place: VLANs, subnets, gateways, WAN addressing, firewall interfaces, server addresses, and device inventory.
 
 ![Enterprise Network Cut Sheet](01-design/topology/Enterprise%20Network%20Cut%20Sheet.png)
 
 ### Cisco CML and GNS3 integration
 
-The following detail shows the CME-side connection from **R-CME-01** through **R1** toward the external Cisco CML network.
+This close-up shows the CME-side connection from **R-CME-01** through **R1** toward the external Cisco CML network.
 
 ![CME-to-Cisco CML connection detail](01-design/topology/CME%20from%20CML.png)
 
-This diagram shows the wider GNS3-to-Cisco CML connection, including the external connector, transit router, switch, and server connections.
+The wider diagram shows the overall GNS3-to-Cisco CML connection, including the external connector, transit router, switch, and server connections.
 
 ![Cisco CML–GNS3 Integration Diagram](01-design/topology/Cisco-CML-GNS3-Integration.png)
 
-The transit setup is documented in a separate repository: [Cisco CML–GNS3 Transit Network](https://github.com/MaloneNetworks/Cisco-CML_GNS3-Transit-Network). That project covers the VMware LAN Segment, Cisco CML bridge, GNS3 Cloud connection, and successful ping tests in both directions over `10.255.255.0/30`.
+The transit build has its own repository: [Cisco CML–GNS3 Transit Network](https://github.com/MaloneNetworks/Cisco-CML_GNS3-Transit-Network). It documents the VMware LAN Segment, Cisco CML bridge, GNS3 Cloud connection, and successful ping tests in both directions across the `10.255.255.0/30` link.
 
-### Design files
+### Design documents
 
 - [Topology documentation](01-design/topology/README.md)
 - [IP addressing and VLAN plan](01-design/ip-addressing.md)
@@ -52,35 +51,35 @@ The transit setup is documented in a separate repository: [Cisco CML–GNS3 Tran
 - [Device inventory](01-design/device-inventory.md)
 - [Previous topology versions](01-design/topology/)
 
-## What I'm building
+## What the lab covers
 
-The lab is designed to give me practice with:
+The goal is to build and work with several parts of an enterprise network:
 
-- **Switching:** VLANs, access ports, trunks, and Layer 3 switching.
-- **Routing:** Inter-VLAN routing, WAN links, and branch connectivity.
-- **Redundancy:** HSRP and redundant core connections.
-- **Firewalls:** Cisco ASA and FortiGate policies, NAT, and traffic control.
-- **DMZ and servers:** Separating services from the internal user networks.
-- **VoIP:** Cisco Call Manager Express (CME) and a Windows softphone.
-- **Virtual machines:** Connecting a Windows 11 VM to the lab as an endpoint.
+- **Switching and VLANs** — segment departments and devices.
+- **Routing and redundancy** — connect networks and practice failover with HSRP.
+- **Firewalls** — configure Cisco ASA and FortiGate policies, NAT, and traffic controls.
+- **DMZ and servers** — separate internal systems from services that need outside access.
+- **Branch connectivity** — connect a remote office using a site-to-site VPN.
+- **VoIP** — use Cisco Call Manager Express (CME) with a Windows softphone.
+- **Virtual machines** — connect a Windows 11 VM to the lab as an endpoint.
 
-## Lab environment
+## Tools and environment
 
-| Tool or device | Purpose |
+| Tool / platform | How it's used |
 |---|---|
-| GNS3 | Build and run the network |
+| GNS3 | Build and run the network topology |
 | Cisco CML Personal | Run Cisco virtual network devices |
 | VMware Workstation | Run the GNS3 environment and endpoint VMs |
-| Cisco IOS IOU L2/L3 | Switching, VLANs, and routing practice |
+| Cisco IOS IOU L2/L3 | Practice switching, VLANs, and routing |
 | Cisco ASA | Perimeter firewall and DMZ |
 | FortiGate | Internal network segmentation |
 | Cisco 3745 | Planned CME/VoIP router |
 | Windows 11 | Planned endpoint and softphone |
-| Python | Planned network troubleshooting exercises |
+| Python | Planned troubleshooting automation |
 
-## VoIP and Windows VM plan
+## VoIP and Windows endpoint
 
-The voice network is planned for **VLAN 30**:
+The voice network is planned for **VLAN 30**.
 
 | Item | Planned value |
 |---|---|
@@ -90,55 +89,53 @@ The voice network is planned for **VLAN 30**:
 | Windows VM | `VOIP-PHONE-01` |
 | VMware LAN Segment | `VOIP-LAB` |
 
-The Windows VM is intended to connect to the voice network through a VMware LAN Segment, the GNS3 VM, a GNS3 Cloud node, and the voice switch. Its separate NAT adapter will provide normal internet access.
+The Windows VM is intended to connect to the voice network through a VMware LAN Segment, the GNS3 VM, a GNS3 Cloud node, and the voice switch. A separate NAT adapter will provide normal internet access. These values are planned until configured and tested.
 
-These are planned settings. I'll mark them as complete only after they are configured and tested.
+## Build plan
 
-## Build order
-
-I'll build and test the network in stages:
+I'll work through the network in stages:
 
 1. Confirm device connections and interface assignments.
 2. Finalize VLANs and IP addressing.
 3. Configure access ports and switch uplinks.
 4. Configure core switching, routing, and HSRP.
 5. Configure the ASA, FortiGate, and DMZ.
-6. Set up the branch VPN.
+6. Bring up the branch VPN.
 7. Configure CME and connect the softphone.
-8. Test connectivity, security rules, redundancy, and calls.
+8. Test connectivity, firewall rules, redundancy, and VoIP.
 9. Add repeatable troubleshooting exercises.
 
-## Troubleshooting practice
+## Troubleshooting exercises
 
-After the main network is working, I plan to create Python-based exercises that introduce one controlled fault at a time. Examples include a wrong access VLAN, a missing trunk VLAN, a routing issue, an HSRP problem, or a firewall rule blocking traffic.
+Once the main network is working, I plan to use Python or similar tools to introduce controlled faults in the lab. Examples include a wrong access VLAN, a missing trunk VLAN, a routing issue, an HSRP problem, or a firewall rule blocking traffic.
 
-I'll use the lab to find the issue, fix it, and verify the result. The exercises will stay inside the isolated lab and use known, reversible changes.
+I'll investigate each issue, fix it, and verify the result. The exercises will use known, reversible changes and stay inside the isolated lab.
 
 ## Repository guide
 
-The project files are grouped by purpose:
+The repository is organized by project stage:
 
 - [Project overview](00-start-here/project-overview.md) — goals and current status.
 - [Design](01-design/) — topology, addressing, port mapping, and device inventory.
 - [Build instructions](02-build/BUILD-INSTRUCTIONS.md) — configuration steps and verification commands.
-- [Lab guide](02-build/LAB-GUIDE.md) — how the lab is organized.
+- [Lab guide](02-build/LAB-GUIDE.md) — how the lab is set up.
 - [Implementation roadmap](02-build/implementation-roadmap.md) — planned build stages.
 - [Configurations](03-configurations/) — saved device configurations.
 - [VoIP](04-voip/README.md) — CME and softphone notes.
-- [Testing](05-testing/test-plan.md) — planned tests and results.
+- [Testing](05-testing/test-plan.md) — test cases and results.
 - [Troubleshooting](06-troubleshooting/network-chaos-lab/README.md) — controlled fault exercises.
 - [Logs and evidence](07-logs-evidence/) — progress notes and screenshots.
 
-For a quick guide to the folders, see the [repository guide](00-start-here/README.md).
+For a quick overview of the folders, see the [repository guide](00-start-here/README.md).
 
 ## Project status
 
-The current topology and cut sheet are the starting design. Configuration and testing are ongoing. I'll keep planned settings separate from completed work and update the project as the lab develops.
+The network design is in place, and configuration is underway. Planned settings will be marked as such until they are verified. I'll keep adding configurations, screenshots, and test results as the lab develops.
 
 ## Other projects and feedback
 
-You can find my other work on my [GitHub profile](https://github.com/MaloneNetworks). You can also connect with me on [LinkedIn](https://www.linkedin.com/in/darrellmalone9107/).
+You can find my other work on my [GitHub profile](https://github.com/MaloneNetworks) or connect with me on [LinkedIn](https://www.linkedin.com/in/darrellmalone9107/).
 
-If you have suggestions or spot something I can improve, feel free to open an issue or start a discussion.
+If you have feedback or suggestions, feel free to open an issue or start a discussion.
 
 Thanks for checking out the project!
