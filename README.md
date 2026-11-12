@@ -42,7 +42,7 @@ This is a third-party resource. I'm linking to the original page rather than hos
 
 Baseline v1.4 is the current design reference for the initial configuration of the enterprise lab. It brings together dual ISP links, the HQ edge router, Cisco ASA perimeter firewall, FortiGate internal segmentation firewall, a DMZ, redundant Layer 3 core switches using HSRP, the distribution and access layers, a branch office connected through GRE over IPsec, and the dedicated VoIP network.
 
-The updated diagram also shows the planned GNS3-to-Cisco CML lab connection through the external connector and transit router. This provides a path for integrating the separate Cisco CML environment with the enterprise lab.
+The updated diagram also shows the GNS3-to-Cisco CML lab connection through the external connector and transit router. This integration is documented separately in the [Cisco CML–GNS3 Transit Network repository](https://github.com/MaloneNetworks/Cisco-CML_GNS3-Transit-Network). That project records the VMware LAN Segment, Cisco CML bridge, GNS3 Cloud connection, and successful bidirectional router-to-router testing across the `10.255.255.0/30` transit link. The separate repository contains the detailed transit build steps, while this repository remains the home for the enterprise/VoIP network design and configuration.
 
 The topology and cut sheet are the starting references for the build. They document the intended layout, device roles, interface connections, VLANs, subnets, gateways, and addressing. They do not mean that every device, routing protocol, firewall policy, redundancy feature, VPN, or service has already been configured and verified. Those items will be implemented and tested in stages, with progress recorded as the lab develops.
 
