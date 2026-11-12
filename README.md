@@ -36,15 +36,27 @@ Some of the Cisco images used for this lab were found in this GitHub repository:
 
 This is a third-party resource. I'm linking to the original page rather than hosting those image files here. Check the repository's own terms and any vendor licensing requirements before downloading or using an image.
 
-## Current topology
+## Current topology and starting design
 
-**Current working baseline:** Enterprise Network Baseline v1.3.
+**Current starting baseline:** Enterprise Network Baseline v1.4.
 
-The v1.3 baseline is the latest network design snapshot and supersedes v1.2 as the current reference. It includes dual ISP connectivity, GRE over IPsec branch connectivity, Cisco ASA perimeter protection, FortiGate internal segmentation, redundant HSRP core switches, distribution and access layers, a DMZ, and a dedicated VoIP network. The design and IP/interface cut sheet have been reviewed, and the documented connections have been checked against the GNS3 topology. Device configuration, connectivity, failover, and security testing remain ahead.
+Baseline v1.4 is the current design reference for the initial configuration of the enterprise lab. It brings together dual ISP links, the HQ edge router, Cisco ASA perimeter firewall, FortiGate internal segmentation firewall, a DMZ, redundant Layer 3 core switches using HSRP, the distribution and access layers, a branch office connected through GRE over IPsec, and the dedicated VoIP network.
 
-![Enterprise Network Baseline v1.3](01-design/topology/Enterprise_Network_BASELINE_v1.3.png)
+The updated diagram also shows the planned GNS3-to-Cisco CML lab connection through the external connector and transit router. This provides a path for integrating the separate Cisco CML environment with the enterprise lab.
 
-See the [topology documentation](01-design/topology/README.md) for the baseline scope and diagram status, and the [network cut sheet](01-design/cut-sheet-working-draft.md) for the device connections, interfaces, VLANs, and addressing reference. The [v1.2 baseline](01-design/topology/Enterprise_Network_BASELINE_v1.2.png) and [v1.1 baseline](01-design/topology/Enterprise_Network_BASELINE_v1.1.png) are retained as previous revisions, alongside the earlier [topology v2.0 snapshot](01-design/topology/v2.0.png).
+The topology and cut sheet are the starting references for the build. They document the intended layout, device roles, interface connections, VLANs, subnets, gateways, and addressing. They do not mean that every device, routing protocol, firewall policy, redundancy feature, VPN, or service has already been configured and verified. Those items will be implemented and tested in stages, with progress recorded as the lab develops.
+
+![Enterprise Network Baseline v1.4](01-design/topology/Enterprise_Network_BASELINE_v1.4.png)
+
+**Design references:**
+
+- [Enterprise Network Baseline v1.4 – Topology](01-design/topology/Enterprise_Network_BASELINE_v1.4.png) — visual layout, device placement, and network connections.
+- [Enterprise Network Cut Sheet](01-design/topology/Enterprise%20Network%20Cut%20Sheet.png) — VLANs, subnetting, gateways, WAN addressing, firewall interfaces, server addressing, and device inventory.
+- [Topology documentation](01-design/topology/README.md) — baseline scope and diagram status.
+- [IP addressing and VLAN plan](01-design/ip-addressing.md) — detailed addressing reference.
+- [Port mapping](01-design/port-mapping.md) — interface assignments and connection endpoints.
+
+Previous design snapshots are retained for reference: [v1.3](01-design/topology/Enterprise_Network_BASELINE_v1.3.png), [v1.2](01-design/topology/Enterprise_Network_BASELINE_v1.2.png), [v1.1](01-design/topology/Enterprise_Network_BASELINE_v1.1.png), and the earlier [topology v2.0 snapshot](01-design/topology/v2.0.png).
 
 ## What I'm building
 
@@ -170,7 +182,7 @@ I've organized the documentation into numbered sections so it's easier to find t
 
 For a quick overview of every section, use the [repository guide](00-start-here/README.md).
 
-The design records have separate jobs: the IP/VLAN plan is the source of truth for addressing, the port register owns cable endpoints, and the device inventory owns device details. The topology and cut sheet will be updated whenever the actual GNS3 layout changes. Planned values will stay marked as draft until verified.
+The design records have separate jobs: the IP/VLAN plan is the source of truth for addressing, the port register owns cable endpoints, and the device inventory owns device details. The topology and cut sheet are the current design references and will be updated whenever the actual GNS3 layout changes. Planned values will stay marked as draft until verified.
 
 ## A note on project status
 
